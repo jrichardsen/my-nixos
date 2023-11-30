@@ -92,7 +92,6 @@
     windowManager.i3 = {
       enable = true;
       extraPackages = with pkgs; [
-        dmenu
         i3status-rust
       ];
     };
@@ -146,32 +145,6 @@
     isNormalUser = true;
     description = "Jonas";
     extraGroups = [ "networkmanager" "wheel" "adbusers" "dialout" ];
-    packages = with pkgs; [
-      # Terminal stuff
-      kitty
-      tmux
-      neovim
-
-      # Messaging
-      thunderbird
-      element-desktop
-      signal-desktop
-      telegram-desktop
-
-      # Utilities
-      firefox
-      libreoffice
-      okular
-      zathura
-      feh
-      pympress
-      vlc
-      wireshark
-      flameshot
-      gnome.gnome-calendar
-      owncloud-client
-      # nagstamon    # TODO: currently broken
-    ];
   };
 
   # List packages installed in system profile. To search, run:
@@ -200,8 +173,6 @@
 
     dunst
 
-    direnv
-    nix-direnv
     python3
     clang
     rustup

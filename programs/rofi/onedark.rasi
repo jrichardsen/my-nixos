@@ -1,0 +1,130 @@
+/*
+ * ROFI color theme
+ *
+ * Based on Something Found in the Internet
+ *
+ * User: Contributors
+ * Copyright: *!
+ */
+
+configuration {
+  font: "JetBrainsMono Nerd Font Medium 12";
+
+  drun {
+    display-name: "";
+  }
+
+  run {
+    display-name: "";
+  }
+
+  window {
+    display-name: "";
+  }
+  
+  combi {
+    display-name: "";
+  }
+
+  timeout {
+    delay: 10;
+    action: "kb-cancel";
+  }
+}
+
+* {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  spacing: 0;
+
+  bg: #282C34;
+  fg: #ABB2BF;
+  fg-alt: #5C6370;
+  blue: #61AFEF;
+  blue-alt: #61AFEF15;
+  red: #E06C75;
+  red-alt: #E06C7515;
+
+  background-color: @bg;
+  text-color: @fg;
+}
+
+window {
+  border: 2px;
+  border-color: @blue-alt;
+  border-radius: 6px;
+  transparency: "real";
+}
+
+mainbox {
+  children: [inputbar, listview, mode-switcher];
+}
+
+inputbar {
+  padding: 6px 6px 0px;
+  spacing: 6px;
+  children: [prompt, entry, row-count];
+}
+
+prompt {
+  padding: 12px;
+}
+
+entry {
+  padding: 12px 10px;
+  text-color: @blue;
+}
+
+row-count {
+  orientation: horizontal;
+  padding: 12px 10px;
+  children: [num-filtered-rows, textbox-separator, num-rows];
+  text-color: @fg-alt;
+  expand: false;
+}
+
+num-filtered-rows {
+  text-color: inherit;
+}
+
+textbox-separator {
+  text-color: inherit;
+  content: "/";
+  expand: false;
+}
+
+num-rows {
+  text-color: inherit;
+}
+
+listview {
+  padding: 0px 6px;
+  lines: 10;
+}
+
+element {
+  children: [element-icon, element-text];
+}
+
+element-icon {
+  padding: 12px;
+}
+
+element-text {
+  padding: 12px 10px;
+}
+
+element-text selected {
+  background-color: @red-alt;
+  text-color: @red;
+}
+
+button {
+  border: 3px 0px 0px;
+  padding: 6px 0px;
+}
+
+button selected {
+  border-color: @fg;
+}
