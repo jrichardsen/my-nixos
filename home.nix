@@ -276,12 +276,10 @@
 
   programs.zsh = {
     enable = true;
-    prezto = {
+    # TODO: switch to prezto
+    oh-my-zsh = {
       enable = true;
-      ssh.identities = [
-        "id_rsa"
-        "atw_goettingen"
-      ];
+      theme = "robbyrussell";
     };
     shellAliases = {
       kssh = "kitty +kitten ssh";
