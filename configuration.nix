@@ -171,8 +171,6 @@
     lightlocker
     autorandr
 
-    dunst
-
     python3
     clang
     rustup

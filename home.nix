@@ -106,6 +106,26 @@
     '';
   };
 
+  services.dunst = {
+    enable = true;
+    iconTheme = {
+      name = "Papirus-Dark";
+      package = pkgs.papirus-icon-theme;
+      size = "32x32";
+    };
+    settings = {
+      global = {
+        width = 300;
+        height = 300;
+        transparency = 15;
+        horizontal_padding = 10;
+        frame_width = 0;
+        format = "%s %p\n%b";
+        font = "JetBrainsMono NerdFont 11";
+      };
+    };
+  };
+
   programs.rofi = {
     enable = true;
     theme = ./programs/rofi/onedark.rasi;
@@ -124,11 +144,26 @@
     enable = true;
     bars = {
       default = {
-        icons = "awesome4";
-        theme = "solarized-dark";
         settings = {
+          theme = {
+            theme = "solarized-dark";
+            overrides = {
+              idle_bg = "#282c34";
+              idle_fg = "#abb2bf";
+              info_bg = "#61afef";
+              info_fg = "#282c34";
+              warning_bg = "#e5c07b";
+              warning_fg = "#282c34";
+              critical_bg = "#e86671";
+              critical_fg = "#282c34";
+              good_bg = "#98c379";
+              good_fg = "#282c34";
+            };
+          };
           icons_format = "{icon}";
         };
+        icons = "awesome4";
+        theme = "solarized-dark";
         blocks = [
           {
             block = "cpu";
