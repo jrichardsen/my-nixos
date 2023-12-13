@@ -26,8 +26,8 @@
         "${modifier}+x" = "exec \"rofi -show run\"";
         "${modifier}+Tab" = "exec \"rofi -show window\"";
         "${modifier}+odiaeresis" = "exec \"rofi -show combi\"";
-        "${modifier}+P" = "exec --no-startup-id \"~/.config/rofi/rofi-power\"";
-        XF86PowerOff = "exec --no-startup-id \"~/.config/rofi/rofi-power\"";
+        "${modifier}+Shift+P" = "exec --no-startup-id \"rofi-power\"";
+        XF86PowerOff = "exec --no-startup-id \"rofi-power\"";
         "${modifier}+h" = "focus left";
         "${modifier}+j" = "focus down";
         "${modifier}+k" = "focus up";
@@ -256,7 +256,7 @@
     withNodeJs = true;
     withPython3 = true;
   };
-  home.file."/home/jonas/.config/nvim" = {
+  xdg.configFile."nvim" = {
     source = ./programs/nvim;
     # have this recursive, so that Neovim can still update, i.e. edit lazy-lock.json
     recursive = true;
@@ -302,6 +302,14 @@
       highlight-transparency = 0;
     };
   };
+
+  home.file.bin = {
+    source = ./programs/scripts;
+    recursive = true;
+  };
+  home.sessionPath = [
+    "$HOME/bin"
+  ];
 
   home.packages = with pkgs; [
     # Messaging

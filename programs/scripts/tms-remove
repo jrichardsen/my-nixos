@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Removes the current directory from tms, can specify a different directory as optional argument
+
+dir=${1:-$(pwd -P)}
+links=$(find ~/.tms-targets/favorites/ -lname $dir)
+if [ -n "$links" ]
+then
+    rm $links
+else
+    echo "No links to current directory found" 1>&2
+    exit 1
+fi
+

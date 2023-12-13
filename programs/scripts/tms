@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# Tmux sessionizer adapted from 
+# https://github.com/ThePrimeagen/.dotfiles/blob/master/bin/.local/scripts/tmux-sessionizer
+
+if [[ $# -eq 1 ]]; then
+    selected=$1
+else
+    selected=$(find -L ~/.tms-targets/ -mindepth 2 -maxdepth 2 -type d -printf '%P\n'| fzf)
+    if [ ! "$selected" ]; then
+        exit 0
+    fi
+    selected_name=$(basename "$selected" | tr . _)
+    selected=$(realpath ~/.tms-targets/$selected)
+fi
+
+if [[ -z $selected ]]; then
+    exit 0
+fi
+
+tmux_running=$(pgrep tmux)
+
+if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
+    tmux new-session -s $selected_name -c $selected
+    exit 0
+fi
+
+tmux new-session -Ads $selected_name -c $selected
+

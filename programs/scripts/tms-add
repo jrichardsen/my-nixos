@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Adds the current directory to tms by creating a symlink to it in ~/tms-favorites/
+
+dir=$(pwd -P)
+name=${1:-$(basename $dir)}
+
+ln -s $dir ~/.tms-targets/favorites/$name
+

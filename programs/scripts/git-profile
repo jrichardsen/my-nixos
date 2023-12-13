@@ -1,0 +1,29 @@
+#!/usr/bin/python3
+
+import sys
+import os
+
+class Profile:
+    def __init__(self, name: str, user: str, email: str) -> None:
+        self.name = name
+        self.user = user
+        self.email = email
+
+profiles = [
+    Profile("personal", "jrichardsen", "jonas.richardsen@gmail.com"),
+    Profile("uni", "j.richardsen", "j.richardsen@stud.uni-goettingen.de"),
+]
+
+if len(sys.argv) != 2:
+    print(f"Usage: {sys.argv[0]} <profile>")
+    exit(1)
+
+profile = sys.argv[1]
+
+for p in profiles:
+    if p.name == profile:
+        os.system(f"git config --local user.name {p.user}")
+        os.system(f"git config --local user.email {p.email}")
+        break
+else:
+    print(f"Invalid profile, available are: {[p.name for p in profiles]}")
