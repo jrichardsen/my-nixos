@@ -67,6 +67,14 @@
     "/share/nix-direnv"
   ];
 
+  # Pinning the registry to system pkgs
+  nix.registry = {
+      nixpkgs.to = {
+        type = "path";
+        path = pkgs.path;
+      };
+    };
+
   # Enable shell system-wide
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;

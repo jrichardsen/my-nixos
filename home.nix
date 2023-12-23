@@ -311,10 +311,30 @@
 
   programs.zsh = {
     enable = true;
-    # TODO: switch to prezto
-    oh-my-zsh = {
+    prezto = {
       enable = true;
-      theme = "robbyrussell";
+      pmodules = [
+        "environment"
+        "terminal"
+        "editor"
+        "history"
+        "directory"
+        "spectrum"
+        "utility"
+
+        "syntax-highlighting"
+        "history-substring-search"
+        "autosuggestions"
+        "git"
+        "tmux"
+        
+        "completion"
+        "prompt"
+      ];
+      editor = {
+        dotExpansion = true;
+        keymap = "vi";
+      };
     };
     shellAliases = {
       kssh = "kitty +kitten ssh";
@@ -322,6 +342,10 @@
       neo = "setxkbmap de neo_qwertz";
       noneo = "setxkbmap de";
     };
+  };
+  programs.starship = {
+    enable = true;
+    enableZshIntegration = true;
   };
 
   programs.direnv = {
