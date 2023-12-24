@@ -246,6 +246,7 @@
     enable = true;
     baseIndex = 1;
     clock24 = true;
+    escapeTime = 0;
     keyMode = "vi";
     mouse = true;
     plugins = with pkgs; [
