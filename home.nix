@@ -317,25 +317,17 @@
       pmodules = [
         "environment"
         "terminal"
-        "editor"
         "history"
         "directory"
         "spectrum"
         "utility"
 
         "syntax-highlighting"
-        "history-substring-search"
-        "autosuggestions"
         "git"
         "tmux"
         
         "completion"
-        "prompt"
       ];
-      editor = {
-        dotExpansion = true;
-        keymap = "vi";
-      };
     };
     shellAliases = {
       kssh = "kitty +kitten ssh";
@@ -343,6 +335,9 @@
       neo = "setxkbmap de neo_qwertz";
       noneo = "setxkbmap de";
     };
+    initExtra = ''
+      source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+    '';
   };
   programs.starship = {
     enable = true;
