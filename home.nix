@@ -18,6 +18,13 @@
       };
       floating.modifier = modifier;
       terminal = "kitty";
+      startup = [
+        {
+           command = "${pkgs.lightlocker}/bin/light-locker";
+           always = true;
+           notification = false;
+        }
+      ];
       keybindings = pkgs.lib.mkOptionDefault {
         "${modifier}+Shift+Return" = "exec firefox";
         "${modifier}+m" = "exec thunderbird";
