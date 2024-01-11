@@ -16,6 +16,7 @@
         style = "NerdFont";
         size = 12.0;
       };
+      defaultWorkspace = "workspace number 1";
       floating.modifier = modifier;
       terminal = "kitty";
       startup = [
