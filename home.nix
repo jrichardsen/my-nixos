@@ -375,6 +375,9 @@
   ];
 
   home.packages = with pkgs; [
+    gh
+    glab
+
     # Messaging
     thunderbird
     element-desktop
