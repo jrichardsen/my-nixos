@@ -25,6 +25,11 @@
            always = true;
            notification = false;
         }
+        {
+           command = "${pkgs.autorandr}/bin/autorandr --change";
+           always = true;
+           notification = false;
+        }
       ];
       keybindings = pkgs.lib.mkOptionDefault {
         "${modifier}+Shift+Return" = "exec firefox";

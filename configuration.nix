@@ -191,10 +191,8 @@
   # Enable android developement
   programs.adb.enable = true;
 
-  services.udev.extraRules = ''
-    # Run autorandr when monitor is (dis)connected
-    ACTION=="change", SUBSYSTEM=="drm", ENV{DISPLAY}=":0", ENV{XAUTHORITY}="/home/jonas/.Xauthority", RUN+="${pkgs.autorandr}/bin/autorandr --change"
-  '';
+  services.udev.packages = [ pkgs.autorandr ];
+  systemd.packages = [ pkgs.autorandr ];
 
   # Enable dark mode in gtk applications
   environment.etc = {
