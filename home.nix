@@ -68,6 +68,22 @@
         XF86MonBrightnessUp = "exec --no-startup-id brightnessctl set +5% && ${refresh_i3status}";
         XF86MonBrightnessDown = "exec --no-startup-id brightnessctl set 5%- && ${refresh_i3status}";
       };
+
+      modes = {
+        resize = {
+          h = "resize shrink width 5 px or 5 ppt";
+          j = "resize grow height 5 px or 5 ppt";
+          k = "resize shrink height 5 px or 5 ppt";
+          l = "resize grow width 5 px or 5 ppt";
+          Left = "resize shrink width 5 px or 5 ppt";
+          Down = "resize grow height 5 px or 5 ppt";
+          Up = "resize shrink height 5 px or 5 ppt";
+          Right = "resize grow width 5 px or 5 ppt";
+          Return = "mode default";
+          Escape = "mode default";
+          "${modifier}+r" = "mode default";
+        };
+      };
       window = {
         titlebar = false;
         border = 3;
