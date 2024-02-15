@@ -348,7 +348,7 @@
         "terminal"
         "editor"
         "history"
-        "directory"
+        "docker"
         "spectrum"
         "utility"
 
@@ -359,7 +359,6 @@
         "tmux"
         
         "completion"
-        "prompt"
       ];
       editor = {
         dotExpansion = true;
@@ -374,6 +373,7 @@
     };
     initExtra = ''
       source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+      bindkey '\e\e' zvm_readkeys_handler
     '';
   };
   programs.starship = {

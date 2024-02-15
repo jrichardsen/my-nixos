@@ -65,6 +65,7 @@
   };
   environment.pathsToLink = [
     "/share/nix-direnv"
+    "/share/zsh"
   ];
 
   # Pinning the registry to system pkgs
