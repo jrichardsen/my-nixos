@@ -183,6 +183,7 @@
     python3
     clang
     rustup
+    opam
     cacert
     texlive.combined.scheme-full
   ];
