@@ -401,6 +401,7 @@
   };
   home.sessionPath = [
     "$HOME/bin"
+    "$HOME/.cargo/bin"
   ];
 
   home.packages = with pkgs; [
