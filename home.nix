@@ -341,41 +341,37 @@
 
   programs.zsh = {
     enable = true;
-    prezto = {
+    enableAutosuggestions = true;
+    enableCompletion = true;
+    historySubstringSearch.enable = true;
+    syntaxHighlighting.enable = true;
+    oh-my-zsh = {
       enable = true;
-      pmodules = [
-        "environment"
-        "terminal"
-        "editor"
+      plugins = [
+        "starship"
         "history"
         "docker"
-        "spectrum"
-        "utility"
 
-        "syntax-highlighting"
-        "history-substring-search"
-        "autosuggestions"
         "git"
         "tmux"
-        
-        "completion"
       ];
-      editor = {
-        dotExpansion = true;
-        keymap = "vi";
-      };
     };
     shellAliases = {
       kssh = "kitty +kitten ssh";
+      v = "nvim";
       vim = "nvim";
       neo = "setxkbmap de neo_qwertz";
       noneo = "setxkbmap de";
     };
-    initExtra = ''
-      source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
-      bindkey '\e\e' zvm_readkeys_handler
-    '';
+    plugins = [
+      {
+        name = "vi-mode";
+        src = pkgs.zsh-vi-mode;
+        file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
+      }
+    ];
   };
+
   programs.starship = {
     enable = true;
     enableZshIntegration = true;
