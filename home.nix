@@ -278,13 +278,17 @@
     escapeTime = 0;
     keyMode = "vi";
     mouse = true;
+    terminal = "tmux-256color";
     plugins = with pkgs; [
       tmuxPlugins.onedark-theme
       tmuxPlugins.yank
     ];
     extraConfig = ''
-      bind -n M-h previous-window
-      bind -n M-l next-window
+      bind-key -n M-h previous-window
+      bind-key -n M-l next-window
+      bind-key -n M-j swap-window -t -1\; select-window -t -1
+      bind-key -n M-k swap-window -t +1\; select-window -t +1
+
       bind-key -T copy-mode-vi v send-keys -X begin-selection
       bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
       bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
@@ -312,6 +316,8 @@
       bind-key -T copy-mode-vi 'C-l' select-pane -R
       bind-key -T copy-mode-vi 'C-\' select-pane -l
       bind-key -T copy-mode-vi 'C-Space' select-pane -t:.+
+
+      set-option -sa terminal-features ',xterm-kitty:RGB'
     '';
   };
 
@@ -353,7 +359,6 @@
         "docker"
 
         "git"
-        "tmux"
       ];
     };
     shellAliases = {
