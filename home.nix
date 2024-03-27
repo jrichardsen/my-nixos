@@ -377,6 +377,9 @@
         file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
       }
     ];
+    localVariables = {
+      ZVM_INIT_MODE="sourcing";
+    };
     initExtra = ''
       unsetopt extendedglob
     '';
