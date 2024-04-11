@@ -41,3 +41,5 @@ vim.o.conceallevel = 0
 
 -- Do not show invisible characters
 vim.opt.list = false
+
+vim.g.autoformat = false
