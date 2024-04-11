@@ -167,6 +167,8 @@
   environment.systemPackages = with pkgs; [
     wget
     curl
+    zip
+    unzip
     git
     gnumake
     vim
