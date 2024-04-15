@@ -343,6 +343,10 @@
         editor = "nvim";
       };
     };
+    ignores = [
+      ".direnv"
+      ".envrc"
+    ];
   };
 
   programs.fzf.enable = true;
