@@ -76,6 +76,8 @@
       };
     };
 
+  nixpkgs.config.allowUnfree = true;
+
   # Enable shell system-wide
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;

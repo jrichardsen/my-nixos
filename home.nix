@@ -426,6 +426,7 @@
     element-desktop
     signal-desktop
     telegram-desktop
+    discord
 
     # Utilities
     firefox
