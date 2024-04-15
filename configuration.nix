@@ -191,6 +191,7 @@
     autorandr
 
     python3
+    clang-tools
     clang
     rustup
     opam

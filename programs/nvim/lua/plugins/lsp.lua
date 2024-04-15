@@ -8,7 +8,8 @@ return {
         timeout_ms = 5000,
       },
       servers = {
-        rust_analyzer = {},
+        clangd = { mason = false, },
+        rust_analyzer = { mason = false, },
         texlab = {
           settings = {
             texlab = {
