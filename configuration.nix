@@ -198,6 +198,7 @@
     rustup
     opam
     cacert
+    ghc
     texlive.combined.scheme-full
   ];
 
