@@ -198,7 +198,7 @@
     rustup
     opam
     cacert
-    ghc
+    (unstable.haskellPackages.ghcWithPackages (pkgs: with pkgs; [ cabal-install ]))
     texlive.combined.scheme-full
   ];
 
