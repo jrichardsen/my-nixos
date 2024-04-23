@@ -199,6 +199,7 @@
     opam
     cacert
     (unstable.haskellPackages.ghcWithPackages (pkgs: with pkgs; [ cabal-install ]))
+    unstable.haskellPackages.haskell-language-server
     texlive.combined.scheme-full
   ];
 

@@ -10,6 +10,7 @@ return {
       servers = {
         clangd = { mason = false, },
         rust_analyzer = { mason = false, },
+        hls = { mason = false, },
         texlab = {
           settings = {
             texlab = {
