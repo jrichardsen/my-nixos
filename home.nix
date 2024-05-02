@@ -386,6 +386,8 @@
     };
     initExtra = ''
       unsetopt extendedglob
+
+      bindkey -s "^f" "tms\n"
     '';
   };
 
