@@ -374,16 +374,6 @@
       neo = "setxkbmap de neo_qwertz";
       noneo = "setxkbmap de";
     };
-    plugins = [
-      {
-        name = "vi-mode";
-        src = pkgs.zsh-vi-mode;
-        file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
-      }
-    ];
-    localVariables = {
-      ZVM_INIT_MODE="sourcing";
-    };
     initExtra = ''
       unsetopt extendedglob
 
