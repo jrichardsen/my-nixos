@@ -193,6 +193,8 @@
     autorandr
 
     python3
+    nil
+    nixpkgs-fmt
     clang-tools
     clang
     rustup

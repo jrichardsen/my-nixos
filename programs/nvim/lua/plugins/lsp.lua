@@ -8,6 +8,16 @@ return {
         timeout_ms = 5000,
       },
       servers = {
+        nil_ls = {
+          mason = false,
+          settings = {
+            ['nil'] = {
+              formatting = {
+                command = { "nixpkgs-fmt" },
+              },
+            },
+          },
+        },
         clangd = { mason = false, },
         rust_analyzer = { mason = false, },
         hls = { mason = false, },
