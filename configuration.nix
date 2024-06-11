@@ -107,18 +107,21 @@
       ];
     };
 
-    libinput.touchpad = {
-      disableWhileTyping = true;
-      naturalScrolling = true;
-      additionalOptions = ''
-        Option "PalmDetection" "True"
-      '';
-    };
-
     # Configure keymap in X11
-    layout = "de";
-    xkbVariant = "neo_qwertz";
+    xkb = {
+      layout = "de";
+      variant = "neo_qwertz";
+    };
   };
+
+  services.libinput.touchpad = {
+    disableWhileTyping = true;
+    naturalScrolling = true;
+    additionalOptions = ''
+      Option "PalmDetection" "True"
+    '';
+  };
+
   services.picom.enable = true;
 
   # Configure console keymap
@@ -127,7 +130,7 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
   services.avahi.enable = true;
-  services.avahi.nssmdns = true;
+  services.avahi.nssmdns4 = true;
   services.avahi.openFirewall = true;
 
   # Enable sound with pipewire.
