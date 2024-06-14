@@ -213,6 +213,9 @@
   # Enable android developement
   programs.adb.enable = true;
 
+  # Enable docker
+  virtualisation.docker.enable = true;
+
   services.udev.packages = [ pkgs.autorandr ];
   systemd.packages = [ pkgs.autorandr ];
 
