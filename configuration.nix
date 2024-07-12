@@ -155,7 +155,7 @@
   users.users.jonas = {
     isNormalUser = true;
     description = "Jonas";
-    extraGroups = [ "networkmanager" "wheel" "adbusers" "dialout" ];
+    extraGroups = [ "networkmanager" "wheel" "adbusers" "dialout" "docker" ];
   };
 
   documentation = {
