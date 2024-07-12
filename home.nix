@@ -395,8 +395,8 @@
   programs.zathura = {
     enable = true;
     options = {
-      highlight-active-color = "#ffffff";
-      highlight-transparency = 0;
+      highlight-color = "rgba(255, 255, 255, 0)";
+      highlight-active-color = "rgba(255, 255, 255, 0)";
     };
   };
 
