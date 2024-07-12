@@ -286,8 +286,8 @@
     extraConfig = ''
       bind-key -n M-h previous-window
       bind-key -n M-l next-window
-      bind-key -n M-j swap-window -t -1\; select-window -t -1
-      bind-key -n M-k swap-window -t +1\; select-window -t +1
+      bind-key -n M-H swap-window -t -1\; select-window -t -1
+      bind-key -n M-L swap-window -t +1\; select-window -t +1
 
       bind-key -T copy-mode-vi v send-keys -X begin-selection
       bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
