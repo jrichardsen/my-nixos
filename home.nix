@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   home.username = "jonas";
@@ -208,11 +208,6 @@
             format = " $icon $available.eng(w:2) ";
           }
           {
-            block = "backlight";
-            device = "intel_backlight";
-            invert_icons = true;
-          }
-          {
             block = "sound";
             headphones_indicator = true;
             click = [
@@ -223,28 +218,9 @@
             ];
           }
           {
-            block = "bluetooth";
-            mac = "F4:4E:FD:00:1F:A6";
-            click = [
-              {
-                button = "left";
-                cmd = "blueman-manager";
-              }
-            ];
-          }
-          {
             block = "net";
-            device = "enp3s0";
+            device = "enp9s0";
             format = " $icon {$ip|N/A} ";
-          }
-          {
-            block = "net";
-            device = "wlp2s0";
-            format = " $icon $ssid{ ($signal_strength)|}: {$ip|N/A} ";
-          }
-          {
-            block = "battery";
-            format = " $icon $percentage ";
           }
           {
             block = "time";

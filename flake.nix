@@ -13,7 +13,7 @@
 
   outputs = { nixpkgs, nixpkgs-unstable, home-manager, nvimx, ... }: {
     nixosConfigurations = {
-      "jonas-laptop" = let
+      "jonas-desktop" = let
         system = "x86_64-linux";
         add-unstable-pkgs = final: _prev: {
           unstable = import nixpkgs-unstable { inherit system; };
