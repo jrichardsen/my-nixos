@@ -6,7 +6,8 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
 
@@ -67,11 +68,11 @@
 
   # Pinning the registry to system pkgs
   nix.registry = {
-      nixpkgs.to = {
-        type = "path";
-        path = pkgs.path;
-      };
+    nixpkgs.to = {
+      type = "path";
+      path = pkgs.path;
     };
+  };
 
   nixpkgs.config.allowUnfree = true;
 
@@ -94,7 +95,7 @@
     desktopManager.xterm.enable = false;
 
     displayManager.lightdm = {
-        enable = true;
+      enable = true;
     };
 
     windowManager.i3 = {
@@ -200,10 +201,14 @@
     rustup
     opam
     cacert
-    (unstable.haskellPackages.ghcWithPackages (pkgs: with pkgs; [ cabal-install ]))
-    unstable.haskellPackages.haskell-language-server
+    cabal-install
+    ghc
+    haskell-language-server 
+    ormolu
     texlive.combined.scheme-full
   ];
+
+  hardware.opengl.enable = true;
 
   environment.variables.EDITOR = "vim";
 

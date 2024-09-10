@@ -370,7 +370,7 @@
     shellAliases = {
       kssh = "kitty +kitten ssh";
       v = "nvim";
-      vim = "nvim";
+      vim = "${pkgs.nvimx}/bin/nvim";
       neo = "setxkbmap de neo_qwertz";
       noneo = "setxkbmap de";
     };

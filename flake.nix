@@ -8,19 +8,23 @@
       url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nvimx.url = "github:jrichardsen/nvimx";
   };
 
-  outputs = { nixpkgs, nixpkgs-unstable, home-manager, ... }: {
+  outputs = { nixpkgs, nixpkgs-unstable, home-manager, nvimx, ... }: {
     nixosConfigurations = {
       "jonas-laptop" = let
         system = "x86_64-linux";
         add-unstable-pkgs = final: _prev: {
           unstable = import nixpkgs-unstable { inherit system; };
         };
+        add-nvimx = final: _prev: {
+          nvimx = nvimx.packages.${system}.nvimx;
+        };
       in nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [
-          { nixpkgs.overlays = [ add-unstable-pkgs ]; }
+          { nixpkgs.overlays = [ add-unstable-pkgs add-nvimx ]; }
           ./configuration.nix
           home-manager.nixosModules.home-manager
           {
