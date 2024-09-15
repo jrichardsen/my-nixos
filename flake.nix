@@ -11,29 +11,47 @@
     nvimx.url = "github:jrichardsen/nvimx";
   };
 
-  outputs = { nixpkgs, nixpkgs-unstable, home-manager, nvimx, ... }: {
-    nixosConfigurations = {
-      "jonas-desktop" = let
-        system = "x86_64-linux";
-        add-unstable-pkgs = final: _prev: {
-          unstable = import nixpkgs-unstable { inherit system; };
-        };
-        add-nvimx = final: _prev: {
-          nvimx = nvimx.packages.${system}.nvimx;
-        };
-      in nixpkgs.lib.nixosSystem {
-        inherit system;
-        modules = [
-          { nixpkgs.overlays = [ add-unstable-pkgs add-nvimx ]; }
-          ./configuration.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.jonas = import ./home.nix;
+  outputs =
+    {
+      nixpkgs,
+      nixpkgs-unstable,
+      home-manager,
+      nvimx,
+      ...
+    }:
+    {
+      # TODO: provide/expose a function that allows to build a system
+      nixosConfigurations =
+        let
+          add-unstable-pkgs = system: final: _prev: {
+            unstable = import nixpkgs-unstable { inherit system; };
+          };
+          add-nvimx = system: final: _prev: { nvimx = nvimx.packages.${system}.nvimx; };
+          externalDependencyOverlayModule = system: {
+            nixpkgs.overlays = [
+              (add-unstable-pkgs system)
+              (add-nvimx system)
+            ];
+          };
+          hosts = {
+            jonas-desktop = "x86_64-linux";
+          };
+        in
+        builtins.mapAttrs (
+          host: system:
+          nixpkgs.lib.nixosSystem {
+            inherit system;
+            modules = [
+              ./hosts/${host}/configuration.nix
+              (externalDependencyOverlayModule system)
+              home-manager.nixosModules.home-manager
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.users.jonas = import ./home.nix;
+              }
+            ];
           }
-        ];
-      };
+        ) hosts;
     };
-  };
 }

@@ -48,7 +48,7 @@
     LC_TIME = "de_DE.UTF-8";
   };
 
-  security.pki.certificateFiles = [ "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt" ./certs/geant.pem ];
+  security.pki.certificateFiles = [ "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt" ../../certs/geant.pem ];
 
   # Allow running unpatched dynamic binaries
   programs.nix-ld.enable = true;
