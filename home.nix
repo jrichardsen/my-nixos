@@ -297,18 +297,6 @@
     '';
   };
 
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-    withNodeJs = true;
-    withPython3 = true;
-  };
-  xdg.configFile."nvim" = {
-    source = ./programs/nvim;
-    # have this recursive, so that Neovim can still update, i.e. edit lazy-lock.json
-    recursive = true;
-  };
-
   programs.git = {
     enable = true;
     userName = "jrichardsen";
@@ -346,7 +334,7 @@
     shellAliases = {
       kssh = "kitty +kitten ssh";
       v = "nvim";
-      vim = "${pkgs.nvimx}/bin/nvim";
+      vim = "nvim";
       neo = "setxkbmap de neo_qwertz";
       noneo = "setxkbmap de";
     };
@@ -386,6 +374,8 @@
   ];
 
   home.packages = with pkgs; [
+    nvimx
+
     gh
     glab
 
