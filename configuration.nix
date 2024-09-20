@@ -182,6 +182,7 @@
     rofi
     xsel
     tree
+    inetutils
     man-pages
     man-pages-posix
 
