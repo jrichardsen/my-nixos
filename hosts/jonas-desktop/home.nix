@@ -157,7 +157,7 @@
 
   programs.rofi = {
     enable = true;
-    theme = ./programs/rofi/onedark.rasi;
+    theme = ../../programs/rofi/onedark.rasi;
     terminal = "${pkgs.kitty}/bin/kitty";
     extraConfig = {
       modes = "drun,run,window,combi";
@@ -365,7 +365,7 @@
   };
 
   home.file.bin = {
-    source = ./programs/scripts;
+    source = ../../programs/scripts;
     recursive = true;
   };
   home.sessionPath = [
