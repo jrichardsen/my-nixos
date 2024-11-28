@@ -1,4 +1,5 @@
 {
+  # TODO: remove programs that are not going to have any configuration
   imports = [
     ./direnv.nix
     ./discord.nix

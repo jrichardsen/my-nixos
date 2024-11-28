@@ -1,5 +1,16 @@
+{ lib, config, ... }:
+let
+  cfg = config.features.presets.locales;
+in
+with lib;
 {
-  config = {
+  options = {
+    features.presets.locales = {
+      enable = mkEnableOption "locales presets";
+    };
+  };
+
+  config = mkIf cfg.enable {
     i18n.defaultLocale = "en_US.UTF-8";
     i18n.extraLocaleSettings = {
       LC_ADDRESS = "de_DE.UTF-8";

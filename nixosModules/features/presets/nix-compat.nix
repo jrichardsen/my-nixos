@@ -1,7 +1,16 @@
-# TODO: maybe better file name
-{ pkgs, ... }:
+{ lib, config, pkgs, ... }:
+let
+  cfg = config.features.presets.nixCompat;
+  in
+  with lib;
 {
-  config = {
+  options = {
+    features.presets.nixCompat = {
+      enable = mkEnableOption "nix related presets";
+    };
+  };
+
+  config = mkIf cfg.enable {
     # Allow installing unfree packages
     nixpkgs.config.allowUnfree = true;
 

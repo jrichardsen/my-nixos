@@ -9,14 +9,10 @@ let
 in
 with lib;
 {
-  options.features.gui.enable = mkOption {
-    type = types.bool;
-    # NOTE: remove this default to force the configuration to specify whether
-    # a gui should be available
-    default = true;
-    description = ''
-      If enabled, provided a graphical user interface.
-    '';
+  options = {
+    features.gui = {
+      enable = mkEnableOption "graphical user interface";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -30,10 +26,13 @@ with lib;
     services.udev.packages = [ pkgs.autorandr ];
     systemd.packages = [ pkgs.autorandr ];
 
-    # TODO: split up
-    environment.systemPackages = [ pkgs.autorandr pkgs.lightlocker ];
+    # NOTE: split up
+    environment.systemPackages = [
+      pkgs.autorandr
+      pkgs.lightlocker
+    ];
 
-    # TODO: move this to its own module
+    # NOTE: move this to its own module
     # Locker
     programs.xss-lock = {
       enable = true;

@@ -1,22 +1,6 @@
 {
   imports = [
-    ./audio.nix
-    ./bluetooth.nix
-    ./bootloader.nix
-    ./brightness.nix
-    ./devtools.nix
-    ./documentation.nix
-    ./general.nix
-    ./gui.nix
+    ./features
     ./home-manager.nix
-    ./keymap.nix
-    ./locales.nix
-    ./nerdfont.nix
-    ./networking.nix
-    ./nix.nix
-    ./printing.nix
-    ./shell.nix
-    ./theming.nix
-    ./touchpad.nix
   ];
 }

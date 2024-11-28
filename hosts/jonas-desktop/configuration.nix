@@ -1,7 +1,6 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../nixosModules
   ];
 
   home-manager.users.jonas = import ./home.nix;
@@ -9,15 +8,30 @@
   users.users.jonas = {
     isNormalUser = true;
     description = "Jonas";
-    # TODO: expose option to allow other modules to add groups for specific
-    # types of users
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-      "adbusers"
-      "dialout"
-      "docker"
-    ];
+    extraGroups = [ "wheel" ];
+  };
+
+  features = {
+    development = {
+      users = [ "jonas" ];
+      android.enable = true;
+      docker.enable = true;
+      documentation.enable = true;
+      networking.enable = true;
+    };
+    gui.enable = true;
+    hardware = {
+      audio.enable = true;
+      bluetooth.enable = true;
+      brightness.enable = false;
+      networking.enable = true;
+      powerButton.enable = true;
+      printing.enable = true;
+      touchpad.enable = true;
+    };
+    nerdfont.enable = true;
+    presets.enableAll = true;
+    theming.enable = true;
   };
 
   system.stateVersion = "23.05";

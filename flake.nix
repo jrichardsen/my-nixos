@@ -43,8 +43,10 @@
             inherit system;
             modules = [
               ./hosts/${host}/configuration.nix
+              ./nixosModules
               (externalDependencyOverlayModule system)
               home-manager.nixosModules.home-manager
+              { networking.hostName = host; }
             ];
           }
         ) hosts;

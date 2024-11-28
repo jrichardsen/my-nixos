@@ -1,7 +1,4 @@
 {
-
-  imports = [ ../../homeManagerModules ];
-
   home.username = "jonas";
   home.homeDirectory = "/home/jonas";
 
