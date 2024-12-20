@@ -1,44 +1,51 @@
+{ pkgs, ... }:
 {
   home.username = "jonas";
   home.homeDirectory = "/home/jonas";
 
   programs = {
-    direnv.enable = true;
-    git.enable = true;
-    gh.enable = true;
-    glab.enable = true;
-    fzf.enable = true;
-    nvimx.enable = true;
-    starship.enable = true;
-    tmux.enable = true;
-    zsh.enable = true;
-
     home-manager.enable = true;
-    i3status-rust.enable = true;
-    rofi.enable = true;
-
-    kitty.enable = true;
 
     firefox.enable = true;
     feh.enable = true;
     zathura.enable = true;
-    libreoffice.enable = true;
-    okular.enable = true;
-    pympress.enable = true;
-    vlc.enable = true;
-    wireshark.enable = true;
 
-    # Messaging
     thunderbird.enable = true;
-    element-desktop.enable = true;
-    signal-desktop.enable = true;
-    telegram-desktop.enable = true;
-    discord.enable = true;
   };
+
+  home.packages = with pkgs; [
+    libreoffice
+    okular
+    pympress
+    vlc
+
+    discord
+    element-desktop
+    signal-desktop
+    telegram-desktop
+  ];
 
   services = {
     dunst.enable = true;
     flameshot.enable = true;
+  };
+
+  features = {
+    desktopEnvironment.enable = true;
+    presets.enableAll = true;
+
+    development = {
+      networking.enable = true;
+      languages = {
+        c.enable = true;
+        haskell.enable = true;
+        latex.enable = true;
+        nix.enable = true;
+        python.enable = true;
+        rust.enable = true;
+      };
+      shellTools.enable = true;
+    };
   };
 
   home.file.bin = {

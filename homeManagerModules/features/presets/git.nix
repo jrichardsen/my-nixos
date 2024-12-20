@@ -1,5 +1,16 @@
+{ lib, config, ... }:
+let
+  cfg = config.features.presets.git;
+in
+with lib;
 {
-  config = {
+  options = {
+    features.presets.git = {
+      enable = mkEnableOption "git presets";
+    };
+  };
+
+  config = mkIf cfg.enable {
     programs.git = {
       userName = "jrichardsen";
       userEmail = "jonas.richardsen@gmail.com";

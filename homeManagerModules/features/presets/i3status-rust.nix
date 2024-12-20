@@ -1,5 +1,16 @@
+{ lib, config, ... }:
+let
+  cfg = config.features.presets.i3status-rust;
+in
+with lib;
 {
-  config = {
+  options = {
+    features.presets.i3status-rust = {
+      enable = mkEnableOption "i3status-rust presets";
+    };
+  };
+
+  config = mkIf cfg.enable {
     programs.i3status-rust = {
       bars = {
         default = {
@@ -27,7 +38,7 @@
             { block = "cpu"; }
             {
               block = "memory";
-              format = " $icon $mem_total_used_percents.eng(w:2) ";
+              format = " $icon $mem_used_percents.eng(w:2) ";
             }
             {
               block = "disk_space";

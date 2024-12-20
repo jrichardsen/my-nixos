@@ -1,6 +1,21 @@
-{ pkgs, ... }:
 {
-  config = {
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+let
+  cfg = config.features.presets.tmux;
+in
+with lib;
+{
+  options = {
+    features.presets.tmux = {
+      enable = mkEnableOption "tmux presets";
+    };
+  };
+
+  config = mkIf cfg.enable {
     programs.tmux = {
       baseIndex = 1;
       clock24 = true;

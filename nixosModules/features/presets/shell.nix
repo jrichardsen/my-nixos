@@ -26,21 +26,18 @@ with lib;
     programs.zsh.enableBashCompletion = true;
     environment.pathsToLink = [ "/share/zsh" ];
 
-    # TODO: minimize, move some to development and home-manager
     environment.systemPackages = with pkgs; [
       wget
       curl
+
       zip
       unzip
-      git
-      gnumake
+
       vim
-      ripgrep
-      fd
-      fzf
+
       xsel
-      tree
-      dig
+
+      htop
     ];
   };
 }

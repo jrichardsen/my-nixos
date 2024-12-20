@@ -1,8 +1,22 @@
-{ pkgs, ... }:
 {
-  config = {
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+let
+  cfg = config.features.presets.i3;
+in
+with lib;
+{
+  options = {
+    features.presets.i3 = {
+      enable = mkEnableOption "i3 presets";
+    };
+  };
+
+  config = mkIf cfg.enable {
     xsession.windowManager.i3 = {
-      enable = true;
       config =
         let
           modifier = "Mod4";

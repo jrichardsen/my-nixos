@@ -1,5 +1,0 @@
-{
-  config = {
-    programs.thunderbird.profiles = {};
-  };
-}

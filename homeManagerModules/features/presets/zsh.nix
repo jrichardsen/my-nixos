@@ -1,5 +1,16 @@
+{ lib, config, ... }:
+let
+  cfg = config.features.presets.zsh;
+in
+with lib;
 {
-  config = {
+  options = {
+    features.presets.zsh = {
+      enable = mkEnableOption "zsh presets";
+    };
+  };
+
+  config = mkIf cfg.enable {
     programs.zsh = {
       autosuggestion.enable = true;
       enableCompletion = true;

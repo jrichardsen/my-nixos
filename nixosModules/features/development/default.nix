@@ -1,6 +1,5 @@
 {
   lib,
-  pkgs,
   config,
   ...
 }:
@@ -9,6 +8,7 @@ let
 in
 with lib;
 {
+  # NOTE: revisit user/group handling
   imports = [
     ./android.nix
     ./docker.nix
@@ -55,24 +55,5 @@ with lib;
         )
       );
     };
-  };
-
-  config = {
-    # TODO: split these up and move them into home-manager
-    environment.systemPackages = with pkgs; [
-      python3
-      nil
-      nixpkgs-fmt
-      clang-tools
-      clang
-      rustup
-      opam
-      cabal-install
-      ghc
-      haskell-language-server
-      ormolu
-      texlive.combined.scheme-full
-    ];
-
   };
 }

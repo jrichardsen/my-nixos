@@ -1,5 +1,16 @@
+{ lib, config, ... }:
+let
+  cfg = config.features.presets.kitty;
+in
+with lib;
 {
-  config = {
+  options = {
+    features.presets.kitty = {
+      enable = mkEnableOption "kitty presets";
+    };
+  };
+
+  config = mkIf cfg.enable {
     programs.kitty = {
       theme = "One Dark";
       font = {

@@ -1,8 +1,13 @@
-{ lib, config, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 let
   cfg = config.features.presets.nixCompat;
-  in
-  with lib;
+in
+with lib;
 {
   options = {
     features.presets.nixCompat = {

@@ -1,8 +1,23 @@
-{ pkgs, ... }:
 {
-  config = {
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+let
+  cfg = config.features.presets.rofi;
+in
+with lib;
+{
+  options = {
+    features.presets.rofi = {
+      enable = mkEnableOption "rofi presets";
+    };
+  };
+
+  config = mkIf cfg.enable {
     programs.rofi = {
-      theme = ../../programs/rofi/onedark.rasi;
+      theme = ../../../programs/rofi/onedark.rasi;
       terminal = "${pkgs.kitty}/bin/kitty";
       extraConfig = {
         modes = "drun,run,window,combi";
