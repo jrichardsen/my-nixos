@@ -1,6 +1,7 @@
 { lib, config, ... }:
 let
   cfg = config.features.presets.kitty;
+  programCfg = config.programs.kitty;
 in
 with lib;
 {
@@ -24,5 +25,6 @@ with lib;
         "ctrl+shift+w" = "noop";
       };
     };
+    systemInterface.applications.terminal = mkIf programCfg.enable "${programCfg.package}/bin/kitty";
   };
 }

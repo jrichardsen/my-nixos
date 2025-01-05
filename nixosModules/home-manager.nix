@@ -2,9 +2,8 @@
 with lib;
 {
   options = {
-    home-manager.users = mkOption {
-      type = types.attrsOf (types.submoduleWith { modules = [ (import ../homeManagerModules) ]; });
-    };
+    home-manager.users = mkOption { type = types.attrsOf (types.submodule ../homeManagerModules); };
+    systemInterface = mkOption { type = types.submodule ../systemInterfaceModules; };
   };
 
   config = {

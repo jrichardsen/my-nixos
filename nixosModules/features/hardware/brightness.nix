@@ -20,5 +20,12 @@ with lib;
     };
   };
 
-  config = mkIf cfg.enable { environment.systemPackages = [ pkgs.brightnessctl ]; };
+  config = mkIf cfg.enable { 
+    environment.systemPackages = [ pkgs.brightnessctl ]; 
+
+    systemInterface.hardware.brightness = {
+      increaseBrightness = "brightnessctl +5%";
+      decreaseBrightness = "brightnessctl 5%-";
+    };
+  };
 }

@@ -36,7 +36,14 @@ with lib;
     # Locker
     programs.xss-lock = {
       enable = true;
-      lockerCommand = "light-locker-command --lock";
+      lockerCommand = config.systemInterface.applications.screenLocker;
     };
+
+    systemInterface.applications.screenLocker = "light-locker-command --lock";
+
+    systemInterface.startupCommands = [
+      "light-locker-command"
+      "autorandr --change"
+    ];
   };
 }

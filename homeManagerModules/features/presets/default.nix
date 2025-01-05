@@ -8,6 +8,8 @@ with lib;
     ./direnv.nix
     ./dunst.nix
     ./git.nix
+    ./firefox.nix
+    ./flameshot.nix
     ./i3.nix
     ./i3status-rust.nix
     ./kitty.nix
@@ -29,6 +31,8 @@ with lib;
     features.presets = mkIf cfg.enableAll (mkDefault {
       direnv.enable = true;
       dunst.enable = true;
+      firefox.enable = true;
+      flameshot.enable = true;
       git.enable = true;
       i3.enable = true;
       i3status-rust.enable = true;

@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  pkgs,
   ...
 }:
 let
@@ -18,7 +17,7 @@ with lib;
   config = mkIf cfg.enable {
     programs.rofi = {
       theme = ../../../programs/rofi/onedark.rasi;
-      terminal = "${pkgs.kitty}/bin/kitty";
+      inherit (config.systemInterface.applications) terminal;
       extraConfig = {
         modes = "drun,run,window,combi";
         combi-modes = "window, drun, run";

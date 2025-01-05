@@ -4,10 +4,10 @@
   pkgs,
   ...
 }:
+with lib;
 let
   cfg = config.features.presets.i3;
 in
-with lib;
 {
   options = {
     features.presets.i3 = {
@@ -31,56 +31,64 @@ with lib;
           };
           defaultWorkspace = "workspace number 1";
           floating.modifier = modifier;
-          terminal = "kitty";
-          startup = [
-            {
-              command = "${pkgs.lightlocker}/bin/light-locker";
-              always = true;
-              notification = false;
-            }
-            {
-              command = "${pkgs.autorandr}/bin/autorandr --change";
-              always = true;
-              notification = false;
-            }
-          ];
-          keybindings = pkgs.lib.mkOptionDefault {
-            "${modifier}+Shift+Return" = "exec firefox";
-            "${modifier}+m" = "exec thunderbird";
-            Print = "exec \"flameshot gui\"";
-            "${modifier}+d" = "exec \"rofi -show drun\"";
-            "${modifier}+x" = "exec \"rofi -show run\"";
-            "${modifier}+Tab" = "exec \"rofi -show window\"";
-            "${modifier}+odiaeresis" = "exec \"rofi -show combi\"";
-            "${modifier}+Shift+P" = "exec --no-startup-id \"rofi-power\"";
-            XF86PowerOff = "exec --no-startup-id \"rofi-power\"";
-            "${modifier}+h" = "focus left";
-            "${modifier}+j" = "focus down";
-            "${modifier}+k" = "focus up";
-            "${modifier}+l" = "focus right";
-            "${modifier}+Shift+h" = "move left";
-            "${modifier}+Shift+j" = "move down";
-            "${modifier}+Shift+k" = "move up";
-            "${modifier}+Shift+l" = "move right";
-            "${modifier}+Ctrl+h" = "move workspace to output left";
-            "${modifier}+Ctrl+j" = "move workspace to output down";
-            "${modifier}+Ctrl+k" = "move workspace to output up";
-            "${modifier}+Ctrl+l" = "move workspace to output right";
-            "${modifier}+b" = "split h";
-            "${modifier}+y" = "focus child";
-            "${modifier}+u" = "workspace number 1";
-            "${modifier}+i" = "workspace number 2";
-            "${modifier}+o" = "workspace number 3";
-            "${modifier}+Shift+u" = "move container to workspace number 1";
-            "${modifier}+Shift+i" = "move container to workspace number 2";
-            "${modifier}+Shift+o" = "move container to workspace number 3";
-            XF86AudioRaiseVolume = "exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && ${refresh_i3status}";
-            XF86AudioLowerVolume = "exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && ${refresh_i3status}";
-            XF86AudioMute = "exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && ${refresh_i3status}";
-            XF86AudioMicMute = "exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && ${refresh_i3status}";
-            XF86MonBrightnessUp = "exec --no-startup-id brightnessctl set +5% && ${refresh_i3status}";
-            XF86MonBrightnessDown = "exec --no-startup-id brightnessctl set 5%- && ${refresh_i3status}";
-          };
+          inherit (config.systemInterface.applications) terminal;
+          startup =
+            let
+              mkStartup = command: {
+                inherit command;
+                always = true;
+                notification = false;
+              };
+            in
+            map mkStartup config.systemInterface.startupCommands;
+          # NOTE: when do we want --no-startup-id
+          keybindings =
+            let
+              apps = config.systemInterface.applications;
+              mkAppKeybind = app: mkIf (app != null) "exec ${app}";
+              mkCmdKeybind = cmd: mkIf (cmd != null) "exec --no-startup-id ${cmd} && ${refresh_i3status}";
+              audioCmds = config.systemInterface.hardware.audio;
+              brightnessCmds = config.systemInterface.hardware.brightness;
+              mkIfRofi = mkIf (config.programs.rofi.enable && config.features.presets.rofi.enable);
+              rofiPower = mkIf config.features.presets.rofi.power "exec --no-startup-id rofi-power";
+            in
+            mkOptionDefault {
+              "${modifier}+Shift+Return" = mkAppKeybind apps.webBrowser;
+              "${modifier}+m" = mkAppKeybind apps.mailClient;
+              "Print" = mkAppKeybind apps.screenshotTool;
+              "${modifier}+d" = mkIfRofi "exec rofi -show drun";
+              "${modifier}+x" = mkIfRofi "exec rofi -show run";
+              "${modifier}+Tab" = mkIfRofi "exec rofi -show window";
+              "${modifier}+odiaeresis" = mkIfRofi "exec rofi -show combi";
+              "${modifier}+Shift+P" = mkIfRofi rofiPower;
+              XF86PowerOff = mkIfRofi rofiPower;
+              "${modifier}+h" = "focus left";
+              "${modifier}+j" = "focus down";
+              "${modifier}+k" = "focus up";
+              "${modifier}+l" = "focus right";
+              "${modifier}+Shift+h" = "move left";
+              "${modifier}+Shift+j" = "move down";
+              "${modifier}+Shift+k" = "move up";
+              "${modifier}+Shift+l" = "move right";
+              "${modifier}+Ctrl+h" = "move workspace to output left";
+              "${modifier}+Ctrl+j" = "move workspace to output down";
+              "${modifier}+Ctrl+k" = "move workspace to output up";
+              "${modifier}+Ctrl+l" = "move workspace to output right";
+              "${modifier}+b" = "split h";
+              "${modifier}+y" = "focus child";
+              "${modifier}+u" = "workspace number 1";
+              "${modifier}+i" = "workspace number 2";
+              "${modifier}+o" = "workspace number 3";
+              "${modifier}+Shift+u" = "move container to workspace number 1";
+              "${modifier}+Shift+i" = "move container to workspace number 2";
+              "${modifier}+Shift+o" = "move container to workspace number 3";
+              XF86AudioRaiseVolume = mkCmdKeybind audioCmds.increaseVolume;
+              XF86AudioLowerVolume = mkCmdKeybind audioCmds.decreaseVolume;
+              XF86AudioMute = mkCmdKeybind audioCmds.toggleMute;
+              XF86AudioMicMute = mkCmdKeybind audioCmds.toggleMicrophone;
+              XF86MonBrightnessUp = mkCmdKeybind brightnessCmds.increaseBrightness;
+              XF86MonBrightnessDown = mkCmdKeybind brightnessCmds.decreaseBrightness;
+            };
 
           modes = {
             resize = {

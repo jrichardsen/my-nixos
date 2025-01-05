@@ -27,7 +27,7 @@ with lib;
         ];
       };
       shellAliases = {
-        kssh = "kitty +kitten ssh";
+        kssh = mkIf config.programs.kitty.enable "kitty +kitten ssh";
         v = "nvim";
         vim = "nvim";
         neo = "setxkbmap de neo_qwertz";

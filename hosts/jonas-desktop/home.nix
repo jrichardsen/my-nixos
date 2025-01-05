@@ -33,6 +33,7 @@
   features = {
     desktopEnvironment.enable = true;
     presets.enableAll = true;
+    presets.i3status-rust.ethernetInterface = "enp9s0";
 
     development = {
       networking.enable = true;
@@ -48,6 +49,7 @@
     };
   };
 
+  # TODO: redo scripts
   home.file.bin = {
     source = ../../programs/scripts;
     recursive = true;

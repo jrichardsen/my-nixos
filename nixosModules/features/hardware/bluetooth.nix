@@ -20,5 +20,6 @@ with lib;
   config = mkIf cfg.enable {
     hardware.bluetooth.enable = true;
     services.blueman.enable = mkDefault guiFeature.enable;
+    systemInterface.applications.bluetoothManager = mkIf config.services.blueman.enable "blueman-manager";
   };
 }

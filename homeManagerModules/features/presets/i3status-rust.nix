@@ -1,12 +1,36 @@
 { lib, config, ... }:
 let
   cfg = config.features.presets.i3status-rust;
+  inherit (config.systemInterface.applications) audioManager;
+  inherit (config.systemInterface.applications) bluetoothManager;
+  programCfg = config.programs.i3status-rust;
 in
 with lib;
 {
   options = {
     features.presets.i3status-rust = {
       enable = mkEnableOption "i3status-rust presets";
+      bluetoothHeadset = mkOption {
+        type = types.nullOr types.str;
+        default = null;
+        description = "mac address of bluetooth headset";
+      };
+      backlight = mkOption {
+        type = types.nullOr types.str;
+        default = null;
+        description = "backlight device";
+      };
+      ethernetInterface = mkOption {
+        type = types.nullOr types.str;
+        default = null;
+        description = "ethernet interface to display";
+      };
+      wifiInterface = mkOption {
+        type = types.nullOr types.str;
+        default = null;
+        description = "wifi interface to display";
+      };
+      battery = mkEnableOption "display of battery charge";
     };
   };
 
@@ -34,41 +58,68 @@ with lib;
           };
           icons = "awesome4";
           theme = "solarized-dark";
-          blocks = [
-            { block = "cpu"; }
-            {
-              block = "memory";
-              format = " $icon $mem_used_percents.eng(w:2) ";
-            }
-            {
-              block = "disk_space";
-              path = "/";
-              info_type = "available";
-              format = " $icon $available.eng(w:2) ";
-            }
-            {
-              block = "sound";
-              headphones_indicator = true;
-              click = [
-                {
+          blocks = mkMerge [
+            [
+              { block = "cpu"; }
+              {
+                block = "memory";
+                format = " $icon $mem_used_percents.eng(w:2) ";
+              }
+              {
+                block = "disk_space";
+                path = "/";
+                info_type = "available";
+                format = " $icon $available.eng(w:2) ";
+              }
+            ]
+            (optional (cfg.bluetoothHeadset != null) {
+              block = "bluetooth";
+              mac = cfg.bluetoothHeadset;
+              click = optional (bluetoothManager != null) ({
+                button = "left";
+                cmd = bluetoothManager;
+              });
+            })
+            (optional (cfg.backlight != null) {
+              block = "backlight";
+              device = cfg.backlight;
+              invert_icons = true;
+            })
+            [
+              {
+                block = "sound";
+                headphones_indicator = true;
+                click = optional (audioManager != null) ({
                   button = "left";
-                  cmd = "pavucontrol";
-                }
-              ];
-            }
-            {
+                  cmd = audioManager;
+                });
+              }
+            ]
+            (optional (cfg.ethernetInterface != null) {
               block = "net";
-              device = "enp9s0";
+              device = cfg.ethernetInterface;
               format = " $icon {$ip|N/A} ";
-            }
-            {
-              block = "time";
-              interval = 5;
-              format = " $timestamp.datetime(f:'%a %d.%m %R') ";
-            }
+            })
+            (optional (cfg.wifiInterface != null) {
+              block = "net";
+              device = cfg.wifiInterface;
+              format = " $icon $ssid{ ($signal_strength)|}: {$ip|N/A} ";
+            })
+            [
+              {
+                block = "time";
+                interval = 5;
+                format = " $timestamp.datetime(f:'%a %d.%m %R') ";
+              }
+            ]
+            (optional cfg.battery {
+              block = "battery";
+              format = " $icon $percentage ";
+            })
           ];
         };
       };
     };
+    systemInterface.applications.statusBarCommand = "${programCfg.package}/bin/i3status-rs ~/.config/i3status-rust/config-default.toml";
   };
 }
