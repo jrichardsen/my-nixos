@@ -14,6 +14,7 @@
 
   outputs =
     {
+      self,
       nixpkgs,
       nixpkgs-unstable,
       home-manager,
@@ -21,35 +22,44 @@
       ...
     }:
     {
-      # TODO: provide/expose a function that allows to build a system
+      overlays = {
+        add-unstable-pkgs = final: _prev: {
+          unstable = import nixpkgs-unstable { inherit (final) system; };
+        };
+        add-nvimx = final: _prev: { nvimx = nvimx.packages.${final.system}.nvimx; };
+      };
+
+      nixosModules = {
+        default = ./nixosModules;
+        externalDependencyOverlays = {
+          nixpkgs.overlays = builtins.attrValues self.overlays;
+        };
+        systemModules = {
+          imports = [
+            self.nixosModules.default
+            self.nixosModules.externalDependencyOverlays
+            home-manager.nixosModules.home-manager
+          ];
+        };
+      };
+
+      # TODO: figure out standalone home-manager
       nixosConfigurations =
         let
-          add-unstable-pkgs = system: final: _prev: {
-            unstable = import nixpkgs-unstable { inherit system; };
-          };
-          add-nvimx = system: final: _prev: { nvimx = nvimx.packages.${system}.nvimx; };
-          externalDependencyOverlayModule = system: {
-            nixpkgs.overlays = [
-              (add-unstable-pkgs system)
-              (add-nvimx system)
-            ];
-          };
+          mkNixosSystem =
+            host: system:
+            nixpkgs.lib.nixosSystem {
+              inherit system;
+              modules = [
+                ./hosts/${host}/configuration.nix
+                { networking.hostName = host; }
+                self.nixosModules.systemModules
+              ];
+            };
           hosts = {
             jonas-desktop = "x86_64-linux";
           };
         in
-        builtins.mapAttrs (
-          host: system:
-          nixpkgs.lib.nixosSystem {
-            inherit system;
-            modules = [
-              ./hosts/${host}/configuration.nix
-              ./nixosModules
-              (externalDependencyOverlayModule system)
-              home-manager.nixosModules.home-manager
-              { networking.hostName = host; }
-            ];
-          }
-        ) hosts;
+        builtins.mapAttrs mkNixosSystem hosts;
     };
 }
