@@ -12,7 +12,7 @@ with lib;
   options = {
     features.presets.rofi = {
       enable = mkEnableOption "rofi presets";
-      power = mkEnableOption "rofi-power" // {
+      rofi-power = mkEnableOption "rofi-power" // {
         default = true;
       };
     };
@@ -33,7 +33,8 @@ with lib;
     };
 
     # NOTE: handle missing screen locker properly
-    home.packages = optional cfg.power (
+    # NOTE: use defaultTo after update
+    home.packages = optional cfg.rofi-power (
       pkgs.writeShellScriptBin "rofi-power" ''
         #!/usr/bin/env bash
 

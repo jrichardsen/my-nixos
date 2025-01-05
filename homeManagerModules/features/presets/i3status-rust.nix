@@ -3,7 +3,6 @@ let
   cfg = config.features.presets.i3status-rust;
   inherit (config.systemInterface.applications) audioManager;
   inherit (config.systemInterface.applications) bluetoothManager;
-  programCfg = config.programs.i3status-rust;
 in
 with lib;
 {
@@ -120,6 +119,6 @@ with lib;
         };
       };
     };
-    systemInterface.applications.statusBarCommand = "${programCfg.package}/bin/i3status-rs ~/.config/i3status-rust/config-default.toml";
+    systemInterface.applications.statusBarCommand = mkIf config.programs.i3status-rust.enable "i3status-rs ~/.config/i3status-rust/config-default.toml";
   };
 }

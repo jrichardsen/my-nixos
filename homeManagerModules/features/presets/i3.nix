@@ -50,7 +50,7 @@ in
               audioCmds = config.systemInterface.hardware.audio;
               brightnessCmds = config.systemInterface.hardware.brightness;
               mkIfRofi = mkIf (config.programs.rofi.enable && config.features.presets.rofi.enable);
-              rofiPower = mkIf config.features.presets.rofi.power "exec --no-startup-id rofi-power";
+              rofiPower = mkIf config.features.presets.rofi.rofi-power "exec --no-startup-id rofi-power";
             in
             mkOptionDefault {
               "${modifier}+Shift+Return" = mkAppKeybind apps.webBrowser;

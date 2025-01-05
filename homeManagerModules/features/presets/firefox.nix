@@ -1,7 +1,6 @@
 { lib, config, ... }:
 let
   cfg = config.features.presets.firefox;
-  programCfg = config.programs.firefox;
 in
 with lib;
 {
@@ -12,6 +11,6 @@ with lib;
   };
 
   config = mkIf cfg.enable {
-    systemInterface.applications.webBrowser = mkIf programCfg.enable "${programCfg.package}/bin/firefox";
+    systemInterface.applications.webBrowser = mkIf config.programs.firefox.enable "firefox";
   };
 }
