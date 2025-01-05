@@ -12,6 +12,7 @@ with lib;
   options = {
     features.presets.tmux = {
       enable = mkEnableOption "tmux presets";
+      tmuxSessionizer = mkEnableOption "tmux sessionizer";
     };
   };
 
@@ -67,5 +68,60 @@ with lib;
         '')
       ];
     };
+    home.packages = mkIf cfg.tmuxSessionizer [
+      (pkgs.writeShellScriptBin "tms" ''
+        #!/usr/bin/env bash
+        # Tmux sessionizer adapted from 
+        # https://github.com/ThePrimeagen/.dotfiles/blob/master/bin/.local/scripts/tmux-sessionizer
+
+        if [[ $# -eq 1 ]]; then
+            selected=$1
+        else
+            selected=$(find -L ~/.tms-targets/ -mindepth 2 -maxdepth 2 -type d -printf '%P\n'| fzf)
+            if [ ! "$selected" ]; then
+                exit 0
+            fi
+            selected_name=$(basename "$selected" | tr . _)
+            selected=$(realpath ~/.tms-targets/$selected)
+        fi
+
+        if [[ -z $selected ]]; then
+            exit 0
+        fi
+
+        # ignore errors, we don't care if it already exists
+        tmux new-session -ds $selected_name -c $selected 2> /dev/null
+
+        if [[ -n $TMUX ]]; then
+            tmux switch-client -t $selected_name
+        else
+            tmux attach-session -t $selected_name
+        fi
+      '')
+      (pkgs.writeShellScriptBin "tms-add" ''
+        #!/usr/bin/env bash
+        # Adds the current directory to tms by creating a symlink to it in ~/tms-favorites/
+
+        dir=$(pwd -P)
+        name=''${1:-$(basename $dir)}
+
+        ln -s $dir ~/.tms-targets/favorites/$name
+      '')
+      (pkgs.writeShellScriptBin "tms-remove" ''
+        #!/usr/bin/env bash
+        # Removes the current directory from tms, can specify a different directory as optional argument
+
+        dir=''${"1:-$" (pwd - P)}
+        links=$(find ~/.tms-targets/favorites/ -lname $dir)
+        if [ -n "$links" ]
+        then
+            rm $links
+        else
+            echo "No links to current directory found" 1>&2
+            exit 1
+        fi
+
+      '')
+    ];
   };
 }

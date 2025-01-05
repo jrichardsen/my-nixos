@@ -15,5 +15,10 @@ with lib;
     };
   };
 
-  config = mkIf cfg.enable { home.packages = with pkgs; [ rustup ]; };
+  config = mkIf cfg.enable {
+    home.packages = with pkgs; [ rustup ];
+
+    # NOTE: should this really be set?
+    home.sessionPath = [ "$HOME/.cargo/bin" ];
+  };
 }

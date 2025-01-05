@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }:
 let
@@ -11,6 +12,9 @@ with lib;
   options = {
     features.presets.rofi = {
       enable = mkEnableOption "rofi presets";
+      power = mkEnableOption "rofi-power" // {
+        default = true;
+      };
     };
   };
 
@@ -27,5 +31,66 @@ with lib;
         kb-custom-4 = "Alt+4,Super+odiaeresis";
       };
     };
+
+    # NOTE: handle missing screen locker properly
+    home.packages = optional cfg.power (
+      pkgs.writeShellScriptBin "rofi-power" ''
+        #!/usr/bin/env bash
+
+        # Opens a rofi menu with various power options
+        show_menu() {
+        	# Menu options
+        	lock_screen="Lock Screen"
+        	standby="Suspend"
+        	reboot="Reboot"
+        	hibernate="Hibernate"
+        	shutdown="Shutdown"
+
+        	options="$lock_screen\n$standby\n$hibernate\n$reboot\n$shutdown"
+
+        	# Open rofi menu, read chosen option
+        	chosen="$(echo -e "$options" | $rofi_command "󰐥")"
+
+        	# Match chosen option to command
+        	case $chosen in
+        	"" | $divider)
+        		echo "No option chosen."
+        		;;
+        	$lock_screen)
+                        ${
+                          if (config.systemInterface.applications.screenLocker != null) then
+                            config.systemInterface.applications.screenLocker
+                          else
+                            "break"
+                        }
+        		;;
+        	$standby)
+        		systemctl suspend
+        		;;
+        	$hibernate)
+        		systemctl hibernate
+        		;;
+        	$logout)
+        		loginctl terminate-session $XDG_SESSION_ID
+        		;;
+        	$reboot)
+        		systemctl reboot
+        		;;
+        	$shutdown)
+        		systemctl poweroff
+        		;;
+        	*)
+        		uptime
+        		;;
+        	esac
+        }
+
+        # Rofi command to pipe into, can add any options here
+        rofi_command="rofi -dmenu -no-fixed-num-lines -i -p"
+        # rofi_command="rofi -width 30 -dmenu -i -p rofi-power:"
+
+        show_menu
+      ''
+    );
   };
 }

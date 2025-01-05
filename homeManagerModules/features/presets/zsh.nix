@@ -26,6 +26,7 @@ with lib;
           "git"
         ];
       };
+      # NOTE: only use these if they make sense
       shellAliases = {
         kssh = mkIf config.programs.kitty.enable "kitty +kitten ssh";
         v = "nvim";

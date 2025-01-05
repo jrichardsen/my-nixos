@@ -8,6 +8,7 @@
       url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # NOTE: revisit nvimx integration
     nvimx.url = "github:jrichardsen/nvimx";
   };
 

@@ -49,16 +49,5 @@
     };
   };
 
-  # TODO: redo scripts
-  home.file.bin = {
-    source = ../../programs/scripts;
-    recursive = true;
-  };
-
-  home.sessionPath = [
-    "$HOME/bin"
-    "$HOME/.cargo/bin"
-  ];
-
   home.stateVersion = "23.05";
 }
