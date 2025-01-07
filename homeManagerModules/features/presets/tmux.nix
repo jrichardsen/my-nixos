@@ -12,7 +12,9 @@ with lib;
   options = {
     features.presets.tmux = {
       enable = mkEnableOption "tmux presets";
-      tmuxSessionizer = mkEnableOption "tmux sessionizer";
+      tmuxSessionizer = mkEnableOption "tmux sessionizer" // {
+        default = true;
+      };
     };
   };
 
