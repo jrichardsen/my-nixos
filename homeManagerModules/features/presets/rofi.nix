@@ -33,7 +33,6 @@ with lib;
     };
 
     # NOTE: handle missing screen locker properly
-    # NOTE: use defaultTo after update
     home.packages = optional cfg.rofi-power (
       pkgs.writeShellScriptBin "rofi-power" ''
         #!/usr/bin/env bash
@@ -58,12 +57,7 @@ with lib;
         		echo "No option chosen."
         		;;
         	$lock_screen)
-                        ${
-                          if (config.systemInterface.applications.screenLocker != null) then
-                            config.systemInterface.applications.screenLocker
-                          else
-                            "break"
-                        }
+                        ${defaultTo "break" config.systemInterface.applications.screenLocker}
         		;;
         	$standby)
         		systemctl suspend
