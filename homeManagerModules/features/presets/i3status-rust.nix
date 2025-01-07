@@ -9,15 +9,15 @@ with lib;
   options = {
     features.presets.i3status-rust = {
       enable = mkEnableOption "i3status-rust presets";
-      bluetoothHeadset = mkOption {
-        type = types.nullOr types.str;
-        default = null;
-        description = "mac address of bluetooth headset";
-      };
       backlight = mkOption {
         type = types.nullOr types.str;
         default = null;
         description = "backlight device";
+      };
+      bluetoothHeadset = mkOption {
+        type = types.nullOr types.str;
+        default = null;
+        description = "mac address of bluetooth headset";
       };
       ethernetInterface = mkOption {
         type = types.nullOr types.str;
@@ -71,14 +71,6 @@ with lib;
                 format = " $icon $available.eng(w:2) ";
               }
             ]
-            (optional (cfg.bluetoothHeadset != null) {
-              block = "bluetooth";
-              mac = cfg.bluetoothHeadset;
-              click = optional (bluetoothManager != null) ({
-                button = "left";
-                cmd = bluetoothManager;
-              });
-            })
             (optional (cfg.backlight != null) {
               block = "backlight";
               device = cfg.backlight;
@@ -94,6 +86,14 @@ with lib;
                 });
               }
             ]
+            (optional (cfg.bluetoothHeadset != null) {
+              block = "bluetooth";
+              mac = cfg.bluetoothHeadset;
+              click = optional (bluetoothManager != null) ({
+                button = "left";
+                cmd = bluetoothManager;
+              });
+            })
             (optional (cfg.ethernetInterface != null) {
               block = "net";
               device = cfg.ethernetInterface;
@@ -104,6 +104,10 @@ with lib;
               device = cfg.wifiInterface;
               format = " $icon $ssid{ ($signal_strength)|}: {$ip|N/A} ";
             })
+            (optional cfg.battery {
+              block = "battery";
+              format = " $icon $percentage ";
+            })
             [
               {
                 block = "time";
@@ -111,10 +115,6 @@ with lib;
                 format = " $timestamp.datetime(f:'%a %d.%m %R') ";
               }
             ]
-            (optional cfg.battery {
-              block = "battery";
-              format = " $icon $percentage ";
-            })
           ];
         };
       };

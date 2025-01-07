@@ -23,6 +23,7 @@ with lib;
           "history"
           "docker"
 
+          # NOTE: replace aliases with homemade ones
           "git"
         ];
       };

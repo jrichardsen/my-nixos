@@ -22,12 +22,12 @@
     gui.enable = true;
     hardware = {
       audio.enable = true;
+      backlight.enable = true;
       bluetooth.enable = true;
-      backlight.enable = false;
       networking.enable = true;
       powerButton.enable = true;
       printing.enable = true;
-      touchpad.enable = false;
+      touchpad.enable = true;
     };
     nerdfont.enable = true;
     presets.enableAll = true;

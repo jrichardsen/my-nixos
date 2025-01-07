@@ -58,6 +58,7 @@
             };
           hosts = {
             jonas-desktop = "x86_64-linux";
+            jonas-laptop = "x86_64-linux";
           };
         in
         builtins.mapAttrs mkNixosSystem hosts;
