@@ -12,7 +12,7 @@ with lib;
 
   config = mkIf cfg.enable {
     programs.kitty = {
-      theme = "One Dark";
+      themeFile = "OneDark";
       font = {
         name = "JetBrainsMono Nerd Font";
         size = 11.0;
