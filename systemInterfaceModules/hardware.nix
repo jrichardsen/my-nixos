@@ -19,9 +19,9 @@ with lib;
           toggleMute = mkCommandOption "toggle audio mute";
           toggleMicrophone = mkCommandOption "toggle microphone";
         };
-        brightness = {
-          increaseBrightness = mkCommandOption "increase screen brightness";
-          decreaseBrightness = mkCommandOption "decrease screen brightness";
+        backlight = {
+          increaseBrightness = mkCommandOption "increase backlight brightness";
+          decreaseBrightness = mkCommandOption "decrease backlight brightness";
         };
       };
   };

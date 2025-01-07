@@ -5,16 +5,16 @@
   ...
 }:
 let
-  cfg = config.features.hardware.brightness;
+  cfg = config.features.hardware.backlight;
 in
 with lib;
 {
   options = {
-    features.hardware.brightness = {
+    features.hardware.backlight = {
       enable = mkOption {
         type = types.bool;
         description = ''
-          If enabled, installs utilities to control brightness.
+          If enabled, installs utilities to control backlight brightness.
         '';
       };
     };
@@ -23,7 +23,7 @@ with lib;
   config = mkIf cfg.enable { 
     environment.systemPackages = [ pkgs.brightnessctl ]; 
 
-    systemInterface.hardware.brightness = {
+    systemInterface.hardware.backlight = {
       increaseBrightness = "brightnessctl +5%";
       decreaseBrightness = "brightnessctl 5%-";
     };

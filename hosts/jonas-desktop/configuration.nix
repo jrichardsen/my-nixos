@@ -23,7 +23,7 @@
     hardware = {
       audio.enable = true;
       bluetooth.enable = true;
-      brightness.enable = false;
+      backlight.enable = false;
       networking.enable = true;
       powerButton.enable = true;
       printing.enable = true;

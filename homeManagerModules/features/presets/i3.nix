@@ -1,9 +1,4 @@
-{
-  lib,
-  config,
-  pkgs,
-  ...
-}:
+{ lib, config, ... }:
 with lib;
 let
   cfg = config.features.presets.i3;
@@ -48,7 +43,7 @@ in
               mkAppKeybind = app: mkIf (app != null) "exec ${app}";
               mkCmdKeybind = cmd: mkIf (cmd != null) "exec --no-startup-id ${cmd} && ${refresh_i3status}";
               audioCmds = config.systemInterface.hardware.audio;
-              brightnessCmds = config.systemInterface.hardware.brightness;
+              backlightCmds = config.systemInterface.hardware.backlight;
               mkIfRofi = mkIf (config.programs.rofi.enable && config.features.presets.rofi.enable);
               rofiPower = mkIf config.features.presets.rofi.rofi-power "exec --no-startup-id rofi-power";
             in
@@ -86,8 +81,8 @@ in
               XF86AudioLowerVolume = mkCmdKeybind audioCmds.decreaseVolume;
               XF86AudioMute = mkCmdKeybind audioCmds.toggleMute;
               XF86AudioMicMute = mkCmdKeybind audioCmds.toggleMicrophone;
-              XF86MonBrightnessUp = mkCmdKeybind brightnessCmds.increaseBrightness;
-              XF86MonBrightnessDown = mkCmdKeybind brightnessCmds.decreaseBrightness;
+              XF86MonBrightnessUp = mkCmdKeybind backlightCmds.increaseBrightness;
+              XF86MonBrightnessDown = mkCmdKeybind backlightCmds.decreaseBrightness;
             };
 
           modes = {
@@ -121,7 +116,7 @@ in
                 size = 12.0;
               };
               position = "bottom";
-              statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ~/.config/i3status-rust/config-default.toml";
+              statusCommand = config.systemInterface.applications.statusBarCommand;
               trayOutput = "none";
               colors = {
                 separator = "#666666";
