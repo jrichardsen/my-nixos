@@ -22,5 +22,7 @@ with lib;
       package = if config.features.gui.enable then pkgs.wireshark-qt else pkgs.wireshark-cli;
     };
     features.development.groups = [ "wireshark" ];
+
+    environment.systemPackages = with pkgs; [ inetutils ];
   };
 }
