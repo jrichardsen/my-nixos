@@ -42,7 +42,7 @@ with lib;
     systemInterface.applications.screenLocker = "light-locker-command --lock";
 
     systemInterface.startupCommands = [
-      "light-locker-command"
+      "light-locker"
       "autorandr --change"
     ];
   };
