@@ -19,6 +19,11 @@ with lib;
     home.packages = with pkgs; [
       ghc
       ormolu
+
+      # language server
+      haskell-language-server
     ];
+
+    programs.nixvim.languages.haskell.enable = true;
   };
 }

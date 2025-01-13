@@ -15,5 +15,14 @@ with lib;
     };
   };
 
-  config = mkIf cfg.enable { home.packages = with pkgs; [ nixpkgs-fmt ]; };
+  config = mkIf cfg.enable {
+    home.packages = with pkgs; [
+      nixpkgs-fmt
+
+      # language server
+      nil
+    ];
+
+    programs.nixvim.languages.nix.enable = true;
+  };
 }

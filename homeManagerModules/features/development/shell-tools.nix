@@ -21,9 +21,10 @@ with lib;
       kitty.enable = true;
 
       direnv.enable = true;
-      git.enable = true;
-      gh.enable = true;
       fzf.enable = true;
+      gh.enable = true;
+      git.enable = true;
+      nixvim.enable = true;
       starship.enable = true;
       tmux.enable = true;
       zsh.enable = true;
@@ -31,7 +32,6 @@ with lib;
 
     home.packages = with pkgs; [
       glab
-      nvimx
 
       gnumake
 

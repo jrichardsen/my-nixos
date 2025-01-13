@@ -18,6 +18,13 @@ with lib;
   config = mkIf cfg.enable {
     programs.zathura.enable = mkDefault true;
 
-    home.packages = with pkgs; [ texlive.combined.scheme-full ];
+    home.packages = with pkgs; [
+      texlive.combined.scheme-full
+
+      # language server
+      texlab
+    ];
+
+    programs.nixvim.languages.latex.enable = true;
   };
 }

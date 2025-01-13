@@ -31,14 +31,6 @@
             unstable-pkgs = final: prev: {
               unstable = import nixpkgs-unstable { inherit (prev.stdenv.hostPlatform) system; };
             };
-            nvimx =
-              final: prev:
-              withSystem prev.stdenv.hostPlatform.system (
-                { config, ... }:
-                {
-                  inherit (config.packages) nvimx;
-                }
-              );
           };
 
           nixosModules = {
@@ -46,10 +38,35 @@
             includeOverlays = {
               nixpkgs.overlays = builtins.attrValues config.flake.overlays;
             };
+            nixvimIntegration =
+              { lib, ... }:
+              with lib;
+              {
+                options.home-manager.users = mkOption {
+                  type = types.attrsOf (
+                    types.submoduleWith {
+                      modules = [
+                        nixvim.homeManagerModules.nixvim
+                        {
+                          options.programs.nixvim = mkOption {
+                            type = types.submoduleWith {
+                              modules = [
+                                ./nvimx/config
+                                { _module.args.utils = import ./nvimx/utils; }
+                              ];
+                            };
+                          };
+                        }
+                      ];
+                    }
+                  );
+                };
+              };
             systemModules = {
               imports = [
                 config.flake.nixosModules.default
                 config.flake.nixosModules.includeOverlays
+                config.flake.nixosModules.nixvimIntegration
                 home-manager.nixosModules.home-manager
                 stylix.nixosModules.stylix
               ];

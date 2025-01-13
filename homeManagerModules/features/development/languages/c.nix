@@ -17,8 +17,13 @@ with lib;
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
+      gcc
+      bear
+
+      # language server
       clang-tools
-      clang
     ];
+
+    programs.nixvim.languages.c.enable = true;
   };
 }
