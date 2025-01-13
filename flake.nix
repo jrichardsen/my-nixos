@@ -10,6 +10,7 @@
     };
     # NOTE: revisit nvimx integration
     nvimx.url = "github:jrichardsen/nvimx";
+    stylix.url = "github:danth/stylix/release-24.11";
   };
 
   outputs =
@@ -19,6 +20,7 @@
       nixpkgs-unstable,
       home-manager,
       nvimx,
+      stylix,
       ...
     }:
     {
@@ -39,6 +41,7 @@
             self.nixosModules.default
             self.nixosModules.externalDependencyOverlays
             home-manager.nixosModules.home-manager
+            stylix.nixosModules.stylix
           ];
         };
       };

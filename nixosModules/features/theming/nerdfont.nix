@@ -5,18 +5,22 @@
   ...
 }:
 let
-  cfg = config.features.nerdfont;
+  cfg = config.features.theming.nerdfont;
 in
 with lib;
 {
   options = {
-    features.nerdfont = {
+    features.theming.nerdfont = {
       enable = mkEnableOption "nerdfont";
     };
   };
 
   config = mkIf cfg.enable {
-    fonts = {
+    stylix.fonts.monospace = {
+      package = pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; };
+      name = "JetBrainsMono Nerd Font";
+    };
+    fonts = mkIf (!config.stylix.enable) {
       packages = [ (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; }) ];
       fontconfig.defaultFonts.monospace = [ "JetBrainsMono Nerd Font" ];
     };

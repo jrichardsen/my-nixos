@@ -1,12 +1,16 @@
-{ lib
-  , config
-  , ...
-  }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 let
   cfg = config.features.theming;
 in
-  with lib;
+with lib;
 {
+  imports = [ ./nerdfont.nix ];
+
   options = {
     features.theming = {
       enable = mkEnableOption "theming";
@@ -14,19 +18,18 @@ in
   };
 
   config = mkIf cfg.enable {
-    # FIXME: this does not seem to do anything, figure out theming properly
-    # NOTE: try stylix
-    environment.etc = {
-      "xdg/gtk-2.0/gtkrc".text = "gtk-application-prefer-dark-theme=1";
-      "xdg/gtk-3.0/settings.ini".text = ''
-        [Settings]
-        gtk-application-prefer-dark-theme = true
-      '';
-      "xdg/gtk-4.0/settings.ini".text = ''
-        [Settings]
-        gtk-application-prefer-dark-theme = true
-      '';
-    };
+    stylix = {
+      enable = true;
 
+      image = mkDefault (
+        pkgs.fetchurl {
+          url = "https://www.pixelstalk.net/wp-content/uploads/image12/A-breathtaking-mountain-peak-towering-above-a-serene-turquoise-lake-illuminated-by-soft-morning-light.jpg";
+          sha256 = "sha256-Ua9ktu0hqhiJDUbM571GisyjKLgSCqJ9ATAz1m09dvg=";
+        }
+      );
+      base16Scheme = mkDefault "${pkgs.base16-schemes}/share/themes/onedark.yaml";
+
+      fonts.sizes.desktop = 12;
+    };
   };
 }
