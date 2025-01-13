@@ -7,8 +7,4 @@
     ./python.nix
     ./rust.nix
   ];
-
-  config = {
-    programs.nixvim.languages.enableByDefault = false;
-  };
 }

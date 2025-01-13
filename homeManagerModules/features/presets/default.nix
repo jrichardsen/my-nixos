@@ -12,6 +12,7 @@ with lib;
     ./i3.nix
     ./i3status-rust.nix
     ./kitty.nix
+    ./nixvim.nix
     ./rofi.nix
     ./starship.nix
     ./thunderbird.nix
@@ -35,6 +36,7 @@ with lib;
       i3.enable = true;
       i3status-rust.enable = true;
       kitty.enable = true;
+      nixvim.enable = true;
       rofi.enable = true;
       starship.enable = true;
       thunderbird.enable = true;

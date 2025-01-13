@@ -20,13 +20,15 @@
       nixpkgs-unstable,
       home-manager,
       stylix,
-      nixvim,
       ...
     }:
     flake-parts.lib.mkFlake { inherit inputs; } (
       { withSystem, config, ... }:
       {
-        imports = [ flake-parts.flakeModules.modules ];
+        imports = [
+          flake-parts.flakeModules.modules
+          ./nvimx
+        ];
 
         flake = {
           overlays = {
@@ -38,7 +40,7 @@
           modules = {
             nixos = {
               default = ./nixosModules;
-              includeOverlays = {
+              applyOverlays = {
                 nixpkgs.overlays = builtins.attrValues config.flake.overlays;
               };
               homeManagerIntegration =
@@ -57,7 +59,7 @@
               systemModules = {
                 imports = with config.flake.modules.nixos; [
                   default
-                  includeOverlays
+                  applyOverlays
                   homeManagerIntegration
 
                   stylix.nixosModules.stylix
@@ -66,15 +68,6 @@
             };
             homeManager = {
               default = ./homeManagerModules;
-              nixvimIntegration =
-                { lib, ... }:
-                with lib;
-                {
-                  imports = [ nixvim.homeManagerModules.nixvim ];
-                  options.programs.nixvim = mkOption {
-                    type = types.submoduleWith { modules = [ config.flake.modules.generic.nvimx ]; };
-                  };
-                };
               systemIntegration =
                 { lib, ... }:
                 with lib;
@@ -86,10 +79,6 @@
             };
             generic = {
               systemInterface = ./systemInterfaceModules;
-              nvimx = {
-                imports = [ ./nvimx/config ];
-                _module.args.utils = import ./nvimx/utils;
-              };
             };
           };
 
@@ -105,7 +94,7 @@
                   modules = [
                     ./hosts/${host}/configuration.nix
                     { networking.hostName = host; }
-                    config.flake.nixosModules.systemModules
+                    config.flake.modules.nixos.systemModules
                   ];
                 };
               hosts = {
@@ -123,29 +112,6 @@
           "aarch64-darwin"
         ];
 
-        perSystem =
-          { pkgs, system, ... }:
-          let
-            nixvim' = nixvim.legacyPackages.${system};
-            utils = import ./nvimx/utils;
-            nixvimModule = {
-              inherit pkgs;
-              module = import ./nvimx/config;
-              extraSpecialArgs = {
-                inherit utils;
-              };
-            };
-            nvimx = nixvim'.makeNixvimWithModule nixvimModule;
-            nvimxWithTooling = nvimx.extend { languages.bundleTooling = true; };
-            nvimxNoIcons = nvimx.extend { style.icons.enable = false; };
-          in
-          {
-            packages = {
-              inherit nvimx;
-              inherit nvimxWithTooling;
-              inherit nvimxNoIcons;
-            };
-          };
       }
     );
 }
