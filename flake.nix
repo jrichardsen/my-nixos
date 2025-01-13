@@ -26,6 +26,8 @@
     flake-parts.lib.mkFlake { inherit inputs; } (
       { withSystem, config, ... }:
       {
+        imports = [ flake-parts.flakeModules.modules ];
+
         flake = {
           overlays = {
             unstable-pkgs = final: prev: {
@@ -33,45 +35,65 @@
             };
           };
 
-          nixosModules = {
-            default = ./nixosModules;
-            includeOverlays = {
-              nixpkgs.overlays = builtins.attrValues config.flake.overlays;
-            };
-            nixvimIntegration =
-              { lib, ... }:
-              with lib;
-              {
-                options.home-manager.users = mkOption {
-                  type = types.attrsOf (
-                    types.submoduleWith {
-                      modules = [
-                        nixvim.homeManagerModules.nixvim
-                        {
-                          options.programs.nixvim = mkOption {
-                            type = types.submoduleWith {
-                              modules = [
-                                ./nvimx/config
-                                { _module.args.utils = import ./nvimx/utils; }
-                              ];
-                            };
-                          };
-                        }
-                      ];
-                    }
-                  );
-                };
+          modules = {
+            nixos = {
+              default = ./nixosModules;
+              includeOverlays = {
+                nixpkgs.overlays = builtins.attrValues config.flake.overlays;
               };
-            systemModules = {
-              imports = [
-                config.flake.nixosModules.default
-                config.flake.nixosModules.includeOverlays
-                config.flake.nixosModules.nixvimIntegration
-                home-manager.nixosModules.home-manager
-                stylix.nixosModules.stylix
-              ];
+              homeManagerIntegration =
+                { lib, ... }:
+                with lib;
+                {
+                  imports = [ home-manager.nixosModules.home-manager ];
+
+                  options = {
+                    home-manager.users = mkOption {
+                      type = types.attrsOf (types.submodule (builtins.attrValues config.flake.modules.homeManager));
+                    };
+                    systemInterface = mkOption { type = types.submodule config.flake.modules.generic.systemInterface; };
+                  };
+                };
+              systemModules = {
+                imports = with config.flake.modules.nixos; [
+                  default
+                  includeOverlays
+                  homeManagerIntegration
+
+                  stylix.nixosModules.stylix
+                ];
+              };
+            };
+            homeManager = {
+              default = ./homeManagerModules;
+              nixvimIntegration =
+                { lib, ... }:
+                with lib;
+                {
+                  imports = [ nixvim.homeManagerModules.nixvim ];
+                  options.programs.nixvim = mkOption {
+                    type = types.submoduleWith { modules = [ config.flake.modules.generic.nvimx ]; };
+                  };
+                };
+              systemIntegration =
+                { lib, ... }:
+                with lib;
+                {
+                  options.systemInterface = mkOption {
+                    type = types.submodule config.flake.modules.generic.systemInterface;
+                  };
+                };
+            };
+            generic = {
+              systemInterface = ./systemInterfaceModules;
+              nvimx = {
+                imports = [ ./nvimx/config ];
+                _module.args.utils = import ./nvimx/utils;
+              };
             };
           };
+
+          nixosModules = config.flake.modules.nixos;
 
           # TODO: figure out standalone home-manager
           nixosConfigurations =
