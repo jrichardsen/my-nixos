@@ -37,38 +37,24 @@ with lib;
     programs.i3status-rust = {
       bars = {
         default = {
-          settings = {
-            theme = {
-              theme = "solarized-dark";
-              overrides = {
-                idle_bg = "#282c34";
-                idle_fg = "#abb2bf";
-                info_bg = "#61afef";
-                info_fg = "#282c34";
-                warning_bg = "#e5c07b";
-                warning_fg = "#282c34";
-                critical_bg = "#e86671";
-                critical_fg = "#282c34";
-                good_bg = "#98c379";
-                good_fg = "#282c34";
-              };
-            };
-            icons_format = "{icon}";
-          };
           icons = "awesome4";
-          theme = "solarized-dark";
+          settings = {
+            theme.theme = "native";
+            theme.overrides = config.lib.stylix.i3status-rust.bar;
+            icons_format = "{icon} ";
+          };
           blocks = mkMerge [
             [
               { block = "cpu"; }
               {
                 block = "memory";
-                format = " $icon $mem_used_percents.eng(w:2) ";
+                format = " $icon $mem_used_percents ";
               }
               {
                 block = "disk_space";
                 path = "/";
                 info_type = "available";
-                format = " $icon $available.eng(w:2) ";
+                format = " $icon $available ";
               }
             ]
             (optional (cfg.backlight != null) {

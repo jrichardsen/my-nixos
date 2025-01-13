@@ -6,7 +6,6 @@ with lib;
 {
   imports = [
     ./direnv.nix
-    ./dunst.nix
     ./git.nix
     ./firefox.nix
     ./flameshot.nix
@@ -30,7 +29,6 @@ with lib;
   config = {
     features.presets = mkIf cfg.enableAll (mkDefault {
       direnv.enable = true;
-      dunst.enable = true;
       firefox.enable = true;
       flameshot.enable = true;
       git.enable = true;

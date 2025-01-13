@@ -29,9 +29,11 @@
       printing.enable = true;
       touchpad.enable = false;
     };
-    nerdfont.enable = true;
     presets.enableAll = true;
-    theming.enable = true;
+    theming = {
+      enable = true;
+      nerdfont.enable = true;
+    };
   };
 
   system.stateVersion = "23.05";

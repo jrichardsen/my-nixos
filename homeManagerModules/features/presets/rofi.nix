@@ -20,7 +20,7 @@ with lib;
 
   config = mkIf cfg.enable {
     programs.rofi = {
-      theme = ../../../programs/rofi/onedark.rasi;
+      theme = mkForce ../../../programs/rofi/onedark.rasi;
       inherit (config.systemInterface.applications) terminal;
       extraConfig = {
         modes = "drun,run,window,combi";

@@ -18,14 +18,11 @@ in
           refresh_i3status = "killall -SIGUSR1 i3status";
         in
         {
-          modifier = modifier;
-          fonts = {
-            names = [ "JetBrainsMono" ];
-            style = "NerdFont";
-            size = 12.0;
-          };
+          inherit modifier;
           defaultWorkspace = "workspace number 1";
-          floating.modifier = modifier;
+          floating = {
+            inherit modifier;
+          };
           inherit (config.systemInterface.applications) terminal;
           startup =
             let
@@ -102,48 +99,20 @@ in
           };
           window = {
             titlebar = false;
-            border = 3;
             hideEdgeBorders = "smart";
           };
           focus = {
             newWindow = "none";
           };
           bars = [
-            {
-              fonts = {
-                names = [ "JetBrainsMono" ];
-                style = "NerdFont";
-                size = 12.0;
-              };
-              position = "bottom";
-              statusCommand = config.systemInterface.applications.statusBarCommand;
-              trayOutput = "none";
-              colors = {
-                separator = "#666666";
-                background = "#222222";
-                statusline = "#dddddd";
-                focusedWorkspace = {
-                  background = "#0088CC";
-                  border = "#0088CC";
-                  text = "#FFFFFF";
-                };
-                activeWorkspace = {
-                  background = "#333333";
-                  border = "#333333";
-                  text = "#FFFFFF";
-                };
-                inactiveWorkspace = {
-                  background = "#333333";
-                  border = "#333333";
-                  text = "#888888";
-                };
-                urgentWorkspace = {
-                  background = "#2F343A";
-                  border = "#900000";
-                  text = "#FFFFFF";
-                };
-              };
-            }
+            (
+              {
+                position = "bottom";
+                statusCommand = config.systemInterface.applications.statusBarCommand;
+                trayOutput = "none";
+              }
+              // config.lib.stylix.i3.bar
+            )
           ];
         };
       extraConfig = ''

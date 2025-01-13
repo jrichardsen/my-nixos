@@ -13,10 +13,6 @@ with lib;
   config = mkIf cfg.enable {
     programs.kitty = {
       themeFile = "OneDark";
-      font = {
-        name = "JetBrainsMono Nerd Font";
-        size = 11.0;
-      };
       keybindings = {
         "ctrl+plus" = "increase_font_size";
         "ctrl+minus" = "decrease_font_size";

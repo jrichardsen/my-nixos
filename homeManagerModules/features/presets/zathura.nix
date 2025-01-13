@@ -11,7 +11,8 @@ with lib;
   };
 
   config = mkIf cfg.enable {
-    programs.zathura.options = {
+    # force this to override stylix
+    programs.zathura.options = mkForce {
         highlight-color = "rgba(255, 255, 255, 0)";
         highlight-active-color = "rgba(255, 255, 255, 0)";
     };
