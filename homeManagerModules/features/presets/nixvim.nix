@@ -12,6 +12,7 @@ with lib;
 
   config = mkIf cfg.enable {
     programs.nixvim = {
+      defaultEditor = true;
       languages.enableByDefault = false;
     };
 

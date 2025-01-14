@@ -32,7 +32,7 @@
 
         flake = {
           overlays = {
-            unstable-pkgs = final: prev: {
+            unstablePkgs = final: prev: {
               unstable = import nixpkgs-unstable { inherit (prev.stdenv.hostPlatform) system; };
             };
           };
