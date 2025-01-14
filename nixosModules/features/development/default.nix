@@ -14,6 +14,7 @@ with lib;
     ./documentation.nix
     ./networking.nix
     ./serial-ports.nix
+    ./virtualbox.nix
   ];
 
   options = {

@@ -33,7 +33,7 @@ with lib;
     };
 
     home.packages = let
-      inherit (config.system.applications) screenLocker;
+      inherit (config.systemInterface.applications) screenLocker;
       hasScreenLocker = screenLocker != null;
       in optional cfg.rofi-power (
       pkgs.writeShellScriptBin "rofi-power" ''

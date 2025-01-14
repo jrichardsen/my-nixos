@@ -19,6 +19,7 @@
       documentation.enable = true;
       networking.enable = true;
       serialPorts.enable = true;
+      virtualbox.enable = true;
     };
     gui.enable = true;
     hardware = {
