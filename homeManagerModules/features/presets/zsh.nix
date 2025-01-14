@@ -23,15 +23,13 @@ with lib;
           "history"
           "docker"
 
-          # NOTE: replace aliases with homemade ones
           "git"
         ];
       };
-      # NOTE: only use these if they make sense
       shellAliases = {
         kssh = mkIf config.programs.kitty.enable "kitty +kitten ssh";
-        v = "nvim";
-        vim = "nvim";
+        v = mkIf config.programs.nixvim.enable "nvim";
+        vim = mkIf config.programs.nixvim.enable "nvim";
         neo = "setxkbmap de neo_qwertz";
         noneo = "setxkbmap de";
       };

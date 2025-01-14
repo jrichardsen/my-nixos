@@ -22,6 +22,5 @@ with lib;
   config = mkIf cfg.enable {
     networking.networkmanager.enable = true;
     features.development.groups = [ "networkmanager" ];
-    # NOTE: network management application
   };
 }

@@ -1,6 +1,5 @@
 { utils, ... }:
 {
-  # NOTE: formatting of injected languages
   config = {
     opts.formatoptions = "jcroqlnt";
 

@@ -20,8 +20,6 @@
           live_grep = setDevicons;
           oldfiles = setDevicons;
         };
-      # NOTE: find more keymaps to add here (use "<leader>se" to search for them)
-      # NOTE: search in root directory or current working directory?
       keymaps =
         let
           mkMap = action: desc: {
@@ -42,7 +40,7 @@
           "<leader>s." = mkMap "oldfiles" "[S]earch Recent Files (\".\" for repeat)";
           "<leader>sr" = mkMap "resume" "[S]earch [R]esume";
           "<leader>sw" = mkMap "grep_string" "[S]earch current [W]ord";
-          # NOTE: map for man pages
+          "<leader>sm" = mkMap "man_pages" "[S]earch [M]an Pages";
         };
     };
     keymaps = [

@@ -5,10 +5,6 @@
   ...
 }:
 {
-  # NOTE: make wrapping and spelling depend on the filetype (aucmd?)
-  # NOTE: figure out spelling (different spelllangs)
-  # NOTE: debugging (dap)?
-  # NOTE: performance optimizations?
   imports = [
     ./coding
     ./editor
@@ -57,7 +53,6 @@
       wrap = true;
     };
 
-    # NOTE: unify descriptions of keymaps
     keymaps = [
       (utils.mkToggleMapN "<leader>ul" "number" "Line numbers")
       (utils.mkToggleMapN "<leader>uL" "relativenumber" "Relative line numbers")
@@ -65,7 +60,6 @@
       (utils.mkToggleMapN "<leader>us" "spell" "Spelling")
       (utils.mkToggleMapN "<leader>uh" "list" "Hidden characters")
       (utils.mkCmdMapN "<leader>ut" "<cmd>TSToggle highlight<cr>" "Toggle Treesitter highlight")
-      # NOTE: terminal mode settings
       {
         mode = "t";
         key = "<Esc><Esc>";

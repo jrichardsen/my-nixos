@@ -27,7 +27,6 @@ with lib;
       mouse = true;
       terminal = "tmux-256color";
       plugins = with pkgs; [
-        # NOTE: do more colorscheme-agnostic theming
         tmuxPlugins.onedark-theme
         tmuxPlugins.yank
       ];

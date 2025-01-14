@@ -15,7 +15,6 @@ with lib;
     };
   };
 
-  # NOTE: arp-scan with privileges
   config = mkIf cfg.enable {
     programs.wireshark = {
       enable = true;

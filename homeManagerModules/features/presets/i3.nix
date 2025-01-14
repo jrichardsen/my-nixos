@@ -33,7 +33,6 @@ in
               };
             in
             map mkStartup config.systemInterface.startupCommands;
-          # NOTE: when do we want --no-startup-id
           keybindings =
             let
               apps = config.systemInterface.applications;
@@ -48,10 +47,10 @@ in
               "${modifier}+Shift+Return" = mkAppKeybind apps.webBrowser;
               "${modifier}+m" = mkAppKeybind apps.mailClient;
               "Print" = mkAppKeybind apps.screenshotTool;
-              "${modifier}+d" = mkIfRofi "exec rofi -show drun";
-              "${modifier}+x" = mkIfRofi "exec rofi -show run";
-              "${modifier}+Tab" = mkIfRofi "exec rofi -show window";
-              "${modifier}+odiaeresis" = mkIfRofi "exec rofi -show combi";
+              "${modifier}+d" = mkIfRofi "exec --no-startup-id rofi -show drun";
+              "${modifier}+x" = mkIfRofi "exec --no-startup-id rofi -show run";
+              "${modifier}+Tab" = mkIfRofi "exec --no-startup-id rofi -show window";
+              "${modifier}+odiaeresis" = mkIfRofi "exec --no-startup-id rofi -show combi";
               "${modifier}+Shift+P" = mkIfRofi rofiPower;
               XF86PowerOff = mkIfRofi rofiPower;
               "${modifier}+h" = "focus left";

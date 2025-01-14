@@ -8,7 +8,6 @@ let
 in
 with lib;
 {
-  # NOTE: revisit user/group handling
   imports = [
     ./android.nix
     ./docker.nix

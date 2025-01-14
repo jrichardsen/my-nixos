@@ -17,7 +17,6 @@
             "<S-CR>" = "cmp.mapping.confirm { behavior = cmp.ConfirmBehavior.Replace }";
             "<C-y>" = "cmp.mapping.confirm { select = true }";
             "<C-Space>" = "cmp.mapping.complete {}";
-            # NOTE: do we need snippet expansion?
             "<C-l>" = "function() 
               if require('luasnip').locally_jumpable(1) then
                 require('luasnip').jump(1)

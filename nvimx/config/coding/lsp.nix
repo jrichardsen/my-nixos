@@ -39,8 +39,6 @@
       };
       lspkind.enable = config.style.icons.enable;
       fidget.enable = true;
-      # NOTE: inlay hints
-      # NOTE: code lenses
     };
   };
 }

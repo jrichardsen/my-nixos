@@ -1,5 +1,4 @@
 {
-  # NOTE: research tabs
   imports = [
     ./buffers.nix
     ./dashboard.nix

@@ -15,7 +15,6 @@ with lib;
     };
   };
 
-  # NOTE: reconsider gh and glab
   config = mkIf cfg.enable {
     programs = {
       kitty.enable = true;

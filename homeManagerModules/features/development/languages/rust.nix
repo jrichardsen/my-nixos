@@ -18,7 +18,6 @@ with lib;
   config = mkIf cfg.enable {
     home.packages = with pkgs; [ rustup ];
 
-    # NOTE: should this really be set?
     home.sessionPath = [ "$HOME/.cargo/bin" ];
 
     programs.nixvim.languages.rust.enable = true;

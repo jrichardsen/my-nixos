@@ -23,9 +23,5 @@ with lib;
         (if cfg.bundleTooling then "${pkgs.nixfmt-rfc-style}/bin/nixfmt" else "nixfmt")
       ];
     };
-    # NOTE: try to get nixd to work
   };
-  # NOTE: keybind to quickly expand/collapse singleton attrs
-  # NOTE: fix indentation
-  # NOTE: make path completions for directories omit the final /
 }

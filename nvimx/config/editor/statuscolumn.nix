@@ -32,7 +32,6 @@
       };
     };
 
-    # NOTE: checkout plugin options
     plugins.marks.enable = true;
 
     plugins.gitsigns = {

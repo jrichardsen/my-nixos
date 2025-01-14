@@ -1,8 +1,6 @@
 { helpers, utils, ... }:
 {
   config = {
-    # NOTE: lazygit integration
-    # NOTE: explore how diff mode works
     plugins = {
       fugitive.enable = true;
       gitsigns = {

@@ -2,10 +2,12 @@
   lib,
   config,
   pkgs,
+  osConfig ? { },
   ...
 }:
 let
   cfg = config.features.development.networking;
+  hasWireshark = osConfig.programs.wireshark.enable or false;
 in
 with lib;
 {
@@ -15,12 +17,11 @@ with lib;
     };
   };
 
-  # NOTE: figure out wireshark
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
       arp-scan
       dig
       nmap
-    ];
+    ] ++ optional (!hasWireshark) wireshark;
   };
 }

@@ -4,12 +4,6 @@ let
 in
 with lib;
 {
-  # NOTE: add more languages
-  #   - bash
-  #   - python
-  #   - jupyter-notebook support?
-  #   - ...
-
   imports = [
     ./c.nix
     ./haskell.nix

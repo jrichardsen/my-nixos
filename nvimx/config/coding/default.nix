@@ -18,7 +18,6 @@
         modules = {
           ai = {
             n_lines = 500;
-            # NOTE: add some more textobjects
             custom_textobjects = {
               o = helpers.mkRaw ''
                 require("mini.ai").gen_spec.treesitter({
@@ -49,8 +48,6 @@
           };
         };
       };
-      # NOTE: restrict list of some grammars for a more lightweight variant
-      # NOTE: treesitter keybinds for inspecting
       treesitter = {
         enable = true;
         gccPackage = null;
@@ -68,9 +65,7 @@
           };
         };
       };
-      # NOTE: try treesitter-textobjects.lspinterop and swapping
       treesitter-textobjects.enable = true;
-      # NOTE: multifile search replace (spectre/grug-far)
     };
   };
 }

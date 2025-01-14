@@ -26,14 +26,11 @@ with lib;
     services.udev.packages = [ pkgs.autorandr ];
     systemd.packages = [ pkgs.autorandr ];
 
-    # NOTE: split up
     environment.systemPackages = [
       pkgs.autorandr
       pkgs.lightlocker
     ];
 
-    # NOTE: move this to its own module
-    # Locker
     programs.xss-lock = {
       enable = true;
       lockerCommand = config.systemInterface.applications.screenLocker;

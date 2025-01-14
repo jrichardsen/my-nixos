@@ -84,7 +84,6 @@
 
           nixosModules = config.flake.modules.nixos;
 
-          # TODO: figure out standalone home-manager
           nixosConfigurations =
             let
               mkNixosSystem =

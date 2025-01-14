@@ -4,7 +4,6 @@ let
 in
 with lib;
 {
-  # NOTE: improve language support
   options = {
     languages.c = {
       enable = mkEnableOption "C/C++ language support";

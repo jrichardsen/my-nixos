@@ -32,8 +32,10 @@ with lib;
       };
     };
 
-    # NOTE: handle missing screen locker properly
-    home.packages = optional cfg.rofi-power (
+    home.packages = let
+      inherit (config.system.applications) screenLocker;
+      hasScreenLocker = screenLocker != null;
+      in optional cfg.rofi-power (
       pkgs.writeShellScriptBin "rofi-power" ''
         #!/usr/bin/env bash
 
@@ -46,7 +48,7 @@ with lib;
         	hibernate="Hibernate"
         	shutdown="Shutdown"
 
-        	options="$lock_screen\n$standby\n$hibernate\n$reboot\n$shutdown"
+        	options="${if hasScreenLocker then "$lock_screen\n" else ""}$standby\n$hibernate\n$reboot\n$shutdown"
 
         	# Open rofi menu, read chosen option
         	chosen="$(echo -e "$options" | $rofi_command "󰐥")"
@@ -56,9 +58,11 @@ with lib;
         	"" | $divider)
         		echo "No option chosen."
         		;;
-        	$lock_screen)
-                        ${defaultTo "break" config.systemInterface.applications.screenLocker}
-        		;;
+        	${if hasScreenLocker then ''
+                $lock_screen)
+                        ${screenLocker}
+        		;;'' 
+                else ""}
         	$standby)
         		systemctl suspend
         		;;

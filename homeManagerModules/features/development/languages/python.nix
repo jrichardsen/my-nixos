@@ -16,6 +16,4 @@ with lib;
   };
 
   config = mkIf cfg.enable { home.packages = with pkgs; [ python3 ]; };
-
-  # NOTE: nixvim support for python
 }

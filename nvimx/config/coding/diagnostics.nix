@@ -6,15 +6,6 @@
 }:
 {
   config = {
-    # NOTE: do we want trouble?
-    #
-    # plugins.trouble = {
-    #   enable = true;
-    #   settings = {
-    #     icons = config.style.icons.enable;
-    #     use_diagnostic_signs = true;
-    #   };
-    # };
     plugins.lsp.keymaps.extra = [
       (utils.mkLuaMapN "[d" "vim.diagnostic.goto_prev" "Go to previous [D]iagnostic Message")
       (utils.mkLuaMapN "]d" "vim.diagnostic.goto_next" "Go to next [D]iagnostic Message")

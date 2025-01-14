@@ -2,7 +2,6 @@
 with lib;
 {
   options = {
-    # NOTE: work with desktop files (instead or additionally)
     applications =
       let
         mkApplicationOption =
