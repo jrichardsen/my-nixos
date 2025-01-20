@@ -41,13 +41,6 @@ with lib;
         types.submodule (
           { name, ... }:
           {
-            options.developer = mkOption {
-              type = types.bool;
-              default = false;
-              description = ''
-                Whether this user is a developer. If enabled, the user is integrated with the enabled development features in `features.development.*`
-              '';
-            };
             config = mkIf (elem name cfg.users) {
               extraGroups = cfg.groups;
             };
