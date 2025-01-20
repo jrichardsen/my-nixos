@@ -3,6 +3,7 @@ let
   cfg = config.features.presets.i3status-rust;
   inherit (config.systemInterface.applications) audioManager;
   inherit (config.systemInterface.applications) bluetoothManager;
+  inherit (config.systemInterface.applications) networkManager;
 in
 with lib;
 {
@@ -84,11 +85,19 @@ with lib;
               block = "net";
               device = cfg.ethernetInterface;
               format = " $icon {$ip|N/A} ";
+              click = optional (networkManager != null) ({
+                button = "left";
+                cmd = networkManager;
+              });
             })
             (optional (cfg.wifiInterface != null) {
               block = "net";
               device = cfg.wifiInterface;
               format = " $icon $ssid{ ($signal_strength)|}: {$ip|N/A} ";
+              click = optional (networkManager != null) ({
+                button = "left";
+                cmd = networkManager;
+              });
             })
             (optional cfg.battery {
               block = "battery";

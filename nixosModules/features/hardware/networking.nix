@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 let
@@ -22,5 +23,8 @@ with lib;
   config = mkIf cfg.enable {
     networking.networkmanager.enable = true;
     features.development.groups = [ "networkmanager" ];
+
+    environment.systemPackages = mkIf config.features.gui.enable [ pkgs.networkmanagerapplet ];
+    systemInterface.applications.networkManager = mkIf config.features.gui.enable "nm-connection-editor";
   };
 }
