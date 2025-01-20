@@ -7,6 +7,7 @@ with lib;
   imports = [
     ./direnv.nix
     ./git.nix
+    ./hyprland.nix
     ./firefox.nix
     ./flameshot.nix
     ./i3.nix
@@ -33,6 +34,7 @@ with lib;
       firefox.enable = true;
       flameshot.enable = true;
       git.enable = true;
+      hyprland.enable = true;
       i3.enable = true;
       i3status-rust.enable = true;
       kitty.enable = true;

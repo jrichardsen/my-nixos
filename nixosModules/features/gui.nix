@@ -1,8 +1,7 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
+{ config, 
+  lib, 
+  pkgs, 
+  ... 
 }:
 let
   cfg = config.features.gui;
@@ -16,31 +15,27 @@ with lib;
   };
 
   config = mkIf cfg.enable {
-    services.xserver = {
+    programs.hyprland = {
       enable = true;
-      desktopManager.xterm.enable = false;
-      displayManager.lightdm.enable = true;
-      windowManager.i3.enable = true;
-    };
-    services.picom.enable = true;
-    services.udev.packages = [ pkgs.autorandr ];
-    systemd.packages = [ pkgs.autorandr ];
-
-    environment.systemPackages = [
-      pkgs.autorandr
-      pkgs.lightlocker
-    ];
-
-    programs.xss-lock = {
-      enable = true;
-      lockerCommand = config.systemInterface.applications.screenLocker;
+      xwayland.enable = true;
     };
 
-    systemInterface.applications.screenLocker = "light-locker-command --lock";
+    services.greetd = let
+      hyprlandConfig = pkgs.writeText "greetd-hyprland.conf" ''
+        exec-once = ${getExe config.programs.regreet.package}; hyprctl dispatch exit
+        misc {
+            disable_hyprland_logo = true
+            disable_splash_rendering = true
+            disable_hyprland_qtutils_check = true
+        }
+      '';
+    in {
+      enable = true;
+      settings = {
+        default_session.command = "Hyprland --config ${hyprlandConfig}";
+      };
+    };
 
-    systemInterface.startupCommands = [
-      "light-locker"
-      "autorandr --change"
-    ];
+    programs.regreet.enable = true;
   };
 }
