@@ -19,6 +19,7 @@ with lib;
   config = mkIf cfg.enable {
     plugins.lsp.servers.nil_ls = {
       enable = true;
+      package = mkIf (!cfg.bundleTooling) (mkDefault null);
       settings.formatting.command = [
         (if cfg.bundleTooling then "${pkgs.nixfmt-rfc-style}/bin/nixfmt" else "nixfmt")
       ];
