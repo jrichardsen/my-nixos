@@ -15,5 +15,12 @@ with lib;
     };
   };
 
-  config = mkIf cfg.enable { home.packages = with pkgs; [ python3 ]; };
+  config = mkIf cfg.enable {
+    home.packages = with pkgs; [
+      python3
+      pyright
+    ];
+
+    programs.nixvim.languages.python.enable = true;
+  };
 }

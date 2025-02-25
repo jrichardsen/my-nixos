@@ -9,6 +9,7 @@ with lib;
     ./haskell.nix
     ./latex.nix
     ./nix.nix
+    ./python.nix
     ./rust.nix
   ];
 
@@ -42,6 +43,7 @@ with lib;
         haskell.enable = true;
         latex.enable = true;
         nix.enable = true;
+        python.enable = true;
         rust.enable = true;
       }))
       (mkIf cfg.bundleTooling (mkDefault {
@@ -49,6 +51,7 @@ with lib;
         haskell.bundleTooling = true;
         latex.bundleTooling = true;
         nix.bundleTooling = true;
+        python.bundleTooling = true;
         rust.bundleTooling = true;
       }))
     ];
