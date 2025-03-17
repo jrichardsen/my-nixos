@@ -49,12 +49,9 @@
                 {
                   imports = [ home-manager.nixosModules.home-manager ];
 
-                  options = {
-                    home-manager.users = mkOption {
-                      type = types.attrsOf (types.submodule (builtins.attrValues config.flake.modules.homeManager));
-                    };
-                    systemInterface = mkOption { type = types.submodule config.flake.modules.generic.systemInterface; };
-                  };
+                  options.systemInterface = mkOption { type = types.submodule config.flake.modules.generic.systemInterface; };
+
+                  config.home-manager.sharedModules = builtins.attrValues config.flake.modules.homeManager;
                 };
               systemModules = {
                 imports = with config.flake.modules.nixos; [
@@ -83,6 +80,7 @@
           };
 
           nixosModules = config.flake.modules.nixos;
+          homeModules = config.flake.modules.homeManager;
 
           nixosConfigurations =
             let
