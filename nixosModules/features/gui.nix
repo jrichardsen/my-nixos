@@ -1,7 +1,8 @@
-{ config, 
-  lib, 
-  pkgs, 
-  ... 
+{
+  config,
+  lib,
+  pkgs,
+  ...
 }:
 let
   cfg = config.features.gui;
@@ -20,22 +21,24 @@ with lib;
       xwayland.enable = true;
     };
 
-    services.greetd = let
-      hyprlandConfig = pkgs.writeText "greetd-hyprland.conf" ''
-        exec-once = ${getExe config.programs.regreet.package}; hyprctl dispatch exit
-        misc {
-            disable_hyprland_logo = true
-            disable_splash_rendering = true
-            disable_hyprland_qtutils_check = true
-        }
-      '';
-    in {
+    programs.regreet = {
       enable = true;
-      settings = {
-        default_session.command = "Hyprland --config ${hyprlandConfig}";
-      };
+      cageArgs = [
+        "-s"
+        "-m"
+        "last"
+      ];
     };
 
-    programs.regreet.enable = true;
+    systemd.packages = [ pkgs.hyprpolkitagent ];
+    # NOTE: should hopefully be fixed with nixos 25.05
+    systemInterface.startupCommands = [ "systemctl --user start hyprpolkitagent" ];
+
+    # adjustments for wayland
+    nixpkgs.overlays = [
+      (self: super: {
+        flameshot = super.flameshot.override { enableWlrSupport = true; };
+      })
+    ];
   };
 }

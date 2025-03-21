@@ -33,12 +33,8 @@ in
         {
           "$mod" = "SUPER";
 
-          monitor = ",preferred,auto,auto";
-
-          env = [
-            "XCURSOR_SIZE,24"
-            "HYPRCURSOR_SIZE,24"
-          ];
+          # TODO: monitor aliases using variables
+          monitor = [ ",preferred,auto,auto" ];
 
           general = {
             gaps_in = 4;
@@ -125,7 +121,7 @@ in
           bind = [
             # General
             "$mod SHIFT, Q, hy3:killactive"
-            "$mod SHIFT CTRL, Q, exit"
+            "$mod SHIFT CTRL, Q, exec, uwsm stop"
             "$mod, C, hy3:makegroup, h, ephemeral"
             "$mod, V, hy3:makegroup, v, ephemeral"
             "$mod, G, hy3:makegroup, tab, ephemeral"
@@ -144,21 +140,21 @@ in
 
             # Move focus
             "$mod, H, hy3:movefocus, left, visible"
-            "$mod, L, hy3:movefocus, right, visible"
-            "$mod, K, hy3:movefocus, up, visible"
             "$mod, J, hy3:movefocus, down, visible"
+            "$mod, K, hy3:movefocus, up, visible"
+            "$mod, L, hy3:movefocus, right, visible"
             "$mod, Comma, hy3:focustab, left"
             "$mod, Period, hy3:focustab, right"
             "$mod, SPACE, hy3:togglefocuslayer"
 
             # Move window
             "$mod SHIFT, H, hy3:movefocus, left, once, visible"
-            "$mod SHIFT, L, hy3:movefocus, right, once, visible"
-            "$mod SHIFT, K, hy3:movefocus, up, once, visible"
             "$mod SHIFT, J, hy3:movefocus, down, once, visible"
+            "$mod SHIFT, K, hy3:movefocus, up, once, visible"
+            "$mod SHIFT, L, hy3:movefocus, right, once, visible"
             "$mod SHIFT, Comma, hy3:focustab, left"
             "$mod SHIFT, Period, hy3:focustab, right"
-            "$mod SHIFT, SPACE, hy3:togglefocuslayer"
+            "$mod SHIFT, SPACE, togglefloating"
 
             # Switch workspaces
             "$mod, U, workspace, 1"
@@ -191,6 +187,16 @@ in
             "$mod SHIFT, 9, movetoworkspace, 9"
             "$mod SHIFT, 0, movetoworkspace, 10"
             "$mod SHIFT, S, movetoworkspace, special:scratchpad"
+
+            # Move workspace on monitors
+            "$mod CTRL, H, movecurrentworkspacetomonitor, l"
+            "$mod CTRL, J, movecurrentworkspacetomonitor, d"
+            "$mod CTRL, K, movecurrentworkspacetomonitor, u"
+            "$mod CTRL, L, movecurrentworkspacetomonitor, r"
+            "$mod SHIFT CTRL, H, swapactiveworkspaces, current l"
+            "$mod SHIFT CTRL, J, swapactiveworkspaces, current d"
+            "$mod SHIFT CTRL, K, swapactiveworkspaces, current u"
+            "$mod SHIFT CTRL, L, swapactiveworkspaces, current r"
           ];
 
           bindel = [
@@ -225,7 +231,10 @@ in
               };
             };
           };
+
+          exec-once = config.systemInterface.startupCommands;
         };
+
     };
   };
 }

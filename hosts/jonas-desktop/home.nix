@@ -49,5 +49,10 @@
     };
   };
 
+  wayland.windowManager.hyprland.settings.monitor = [
+    "desc:Samsung Electric Company LS27D80xU HK2XB01839, preferred, 0x0, auto"
+    "desc:BNQ BenQ GW2265 TAD00473019, preferred, auto, auto"
+  ];
+
   home.stateVersion = "23.05";
 }
