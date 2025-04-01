@@ -21,6 +21,7 @@ with lib;
         bluetoothManager = mkApplicationOption "Bluetooth manager application";
         networkManager = mkApplicationOption "Network manager application";
 
+        appLauncher = mkApplicationOption "Application launcher application";
         screenLocker = mkApplicationOption "Screen locker application";
         screenshotTool = mkApplicationOption "Screenshot tool";
         statusBarCommand = mkApplicationOption "status bar command";

@@ -28,6 +28,8 @@ with lib;
         "-m"
         "last"
       ];
+
+      font.size = config.stylix.fonts.sizes.applications;
     };
 
     systemd.packages = [ pkgs.hyprpolkitagent ];

@@ -91,5 +91,6 @@ with lib;
         show_menu
       ''
     );
+    systemInterface.applications.appLauncher = "rofi -show drun";
   };
 }

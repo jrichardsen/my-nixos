@@ -32,6 +32,9 @@ with lib;
       ];
       extraConfig = mkMerge [
         ''
+          set -g set-titles on
+          set -g set-titles-string "#W (#S)"
+
           bind-key -n M-h previous-window
           bind-key -n M-l next-window
           bind-key -n M-H swap-window -t -1\; select-window -t -1

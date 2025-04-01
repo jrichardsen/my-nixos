@@ -8,7 +8,7 @@
   users.users.jonas = {
     isNormalUser = true;
     description = "Jonas";
-    extraGroups = [ "wheel" ];
+    extraGroups = [ "wheel" "input" ];
   };
 
   features = {

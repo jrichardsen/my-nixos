@@ -18,6 +18,7 @@ with lib;
     ./starship.nix
     ./thunderbird.nix
     ./tmux.nix
+    ./waybar.nix
     ./zathura.nix
     ./zsh.nix
   ];
@@ -43,6 +44,7 @@ with lib;
       starship.enable = true;
       thunderbird.enable = true;
       tmux.enable = true;
+      waybar.enable = true;
       zathura.enable = true;
       zsh.enable = true;
     });

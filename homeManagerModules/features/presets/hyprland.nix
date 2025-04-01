@@ -19,12 +19,26 @@ in
 
   config = mkIf cfg.enable {
     wayland.windowManager.hyprland = {
-      # TODO: move this to desktop-environment.nix
-      enable = true;
-
       plugins = with pkgs.hyprlandPlugins; [ hy3 ];
 
-      extraConfig = "source = ~/.hyprland-dynamic.conf";
+      # Need to define submap here to have proper ordering in config
+      extraConfig = ''
+        submap = resize
+
+        binde = , H, resizeactive, -10 0
+        binde = , J, resizeactive, 0 10
+        binde = , K, resizeactive, 0 -10
+        binde = , L, resizeactive, 10 0
+
+        bind = $mod, R, submap, reset
+        bind = , Escape, submap, reset
+        # Escape in de,neo_qwertz
+        bind = Mod3, y, submap, reset
+
+        submap = reset
+
+        source = ~/.hyprland-dynamic.conf
+      '';
 
       settings =
         let
@@ -121,7 +135,8 @@ in
           bind = [
             # General
             "$mod SHIFT, Q, hy3:killactive"
-            "$mod SHIFT CTRL, Q, exec, uwsm stop"
+            "$mod SHIFT CTRL, Q, exit"
+            "$mod, R, submap, resize"
             "$mod, C, hy3:makegroup, h, ephemeral"
             "$mod, V, hy3:makegroup, v, ephemeral"
             "$mod, G, hy3:makegroup, tab, ephemeral"
@@ -137,6 +152,7 @@ in
             (mkCmdKeybind "$mod, Return" apps.terminal)
             (mkCmdKeybind "$mod SHIFT, Return" apps.webBrowser)
             (mkCmdKeybind "$mod, M" apps.mailClient)
+            (mkCmdKeybind "$mod, D" apps.appLauncher)
 
             # Move focus
             "$mod, H, hy3:movefocus, left, visible"
@@ -148,12 +164,12 @@ in
             "$mod, SPACE, hy3:togglefocuslayer"
 
             # Move window
-            "$mod SHIFT, H, hy3:movefocus, left, once, visible"
-            "$mod SHIFT, J, hy3:movefocus, down, once, visible"
-            "$mod SHIFT, K, hy3:movefocus, up, once, visible"
-            "$mod SHIFT, L, hy3:movefocus, right, once, visible"
-            "$mod SHIFT, Comma, hy3:focustab, left"
-            "$mod SHIFT, Period, hy3:focustab, right"
+            "$mod SHIFT, H, hy3:movewindow, left, once, visible"
+            "$mod SHIFT, J, hy3:movewindow, down, once, visible"
+            "$mod SHIFT, K, hy3:movewindow, up, once, visible"
+            "$mod SHIFT, L, hy3:movewindow, right, once, visible"
+            "$mod SHIFT, Comma, hy3:movewindow, left"
+            "$mod SHIFT, Period, hy3:movewindow, right"
             "$mod SHIFT, SPACE, togglefloating"
 
             # Switch workspaces
@@ -210,6 +226,11 @@ in
 
           bindn = ", mouse:272, hy3:focustab, mouse";
 
+          bindm = [
+            "$mod, mouse:272, movewindow"
+            "$mod, mouse:273, resizewindow"
+          ];
+
           windowrulev2 = [
             # Ignore maximize requests from apps. You'll probably like this.
             "suppressevent maximize, class:.*"
@@ -235,6 +256,10 @@ in
           exec-once = config.systemInterface.startupCommands;
         };
 
+    };
+    programs.waybar.systemd = {
+      enable = true;
+      target = "hyprland-session.target";
     };
   };
 }

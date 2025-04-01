@@ -50,8 +50,8 @@
   };
 
   wayland.windowManager.hyprland.settings.monitor = [
-    "desc:Samsung Electric Company LS27D80xU HK2XB01839, preferred, 0x0, auto"
-    "desc:BNQ BenQ GW2265 TAD00473019, preferred, auto, auto"
+    "desc:Samsung Electric Company LS27D80xU HK2XB01839, 3840x2160@60, 0x0, 1.5"
+    "desc:BNQ BenQ GW2265 TAD00473019, 1920x1080@60, 2560x0, 1"
   ];
 
   home.stateVersion = "23.05";

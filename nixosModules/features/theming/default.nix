@@ -28,8 +28,9 @@ with lib;
         }
       );
       base16Scheme = mkDefault "${pkgs.base16-schemes}/share/themes/onedark.yaml";
+      polarity = "dark";
 
-      fonts.sizes.desktop = 12;
+      fonts.sizes.desktop = 11;
     };
   };
 }
