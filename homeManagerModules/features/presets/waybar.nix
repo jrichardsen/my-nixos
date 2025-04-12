@@ -19,6 +19,7 @@ in
     programs.waybar = {
       settings = {
         mainBar = {
+          # TODO: remove before merge
           include = [ "~/.waybar-dynamic.jsonc" ];
           spacing = 8;
           modules-left = [
@@ -112,11 +113,11 @@ in
             ];
           };
           bluetooth = {
-            format = " {status}";
+            format = " {status}";
             format-disabled = "";
-            format-on = " ";
-            format-connected = " {device_alias}";
-            format-connected-battery = " {device_alias} ({device_battery_percentage}%)";
+            format-on = " ";
+            format-connected = "{device_alias}  ";
+            format-connected-battery = "{device_alias} ({device_battery_percentage}%)  ";
             tooltip-format = "{controller_alias}\t{controller_address}\n\n{num_connections} connected";
             tooltip-format-connected = "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}";
             tooltip-format-enumerate-connected = "{device_alias}\t{device_address}";

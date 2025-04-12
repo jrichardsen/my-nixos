@@ -6,6 +6,7 @@
 }:
 let
   cfg = config.features.presets.rofi;
+  programCfg = config.programs.rofi;
 in
 with lib;
 {
@@ -15,6 +16,7 @@ with lib;
       rofi-power = mkEnableOption "rofi-power" // {
         default = true;
       };
+      uwsm = mkEnableOption "launch apps via uwsm";
     };
   };
 
@@ -91,6 +93,7 @@ with lib;
         show_menu
       ''
     );
-    systemInterface.applications.appLauncher = "rofi -show drun";
+    systemInterface.applications.appLauncher = mkIf programCfg.enable (if cfg.uwsm then "rofi -show drun -run-command \"uwsm app -- {cmd}\"" else "rofi -show drun");
+    systemInterface.applications.powerMenu = mkIf (programCfg.enable && cfg.rofi-power) "rofi-power";
   };
 }

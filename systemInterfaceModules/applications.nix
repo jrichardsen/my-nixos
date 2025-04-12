@@ -24,7 +24,8 @@ with lib;
         appLauncher = mkApplicationOption "Application launcher application";
         screenLocker = mkApplicationOption "Screen locker application";
         screenshotTool = mkApplicationOption "Screenshot tool";
-        statusBarCommand = mkApplicationOption "status bar command";
+        statusBarCommand = mkApplicationOption "Status bar command";
+        powerMenu = mkApplicationOption "Power menu";
       };
   };
 }

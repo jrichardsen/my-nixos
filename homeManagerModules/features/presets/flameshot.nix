@@ -12,6 +12,6 @@ with lib;
   };
 
   config = mkIf cfg.enable {
-    systemInterface.applications.screenshotTool = mkIf serviceCfg.enable "${serviceCfg.package}/bin/flameshot gui";
+    systemInterface.applications.screenshotTool = mkIf serviceCfg.enable "flameshot gui";
   };
 }

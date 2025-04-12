@@ -25,15 +25,9 @@
     telegram-desktop
   ];
 
-  services = {
-    dunst.enable = true;
-    flameshot.enable = true;
-  };
-
   features = {
     desktopEnvironment.enable = true;
     presets.enableAll = true;
-    presets.i3status-rust.ethernetInterface = "enp9s0";
 
     development = {
       networking.enable = true;

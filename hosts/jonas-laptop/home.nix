@@ -26,20 +26,12 @@
   ];
 
   services = {
-    dunst.enable = true;
     flameshot.enable = true;
   };
 
   features = {
     desktopEnvironment.enable = true;
     presets.enableAll = true;
-    presets.i3status-rust = {
-      backlight = "intel_backlight";
-      bluetoothHeadset = "F4:4E:FD:00:1F:A6";
-      ethernetInterface = "enp3s0";
-      wifiInterface = "wlp2s0";
-      battery = true;
-    };
 
     development = {
       networking.enable = true;
@@ -54,6 +46,12 @@
       shellTools.enable = true;
     };
   };
+
+  wayland.windowManager.hyprland.settings.monitor = [
+    "desc:Samsung Electric Company LS27D80xU HK2XB01839, 3840x2160@60, 0x0, 1.5"
+    "desc:BNQ BenQ GW2265 TAD00473019, 1920x1080@60, 2560x0, 1"
+    "eDP-1, 1920x1080@60, 2560x1440, 1"
+  ];
 
   home.stateVersion = "23.05";
 }

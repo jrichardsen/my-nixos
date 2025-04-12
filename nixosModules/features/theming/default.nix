@@ -9,7 +9,9 @@ let
 in
 with lib;
 {
-  imports = [ ./nerdfont.nix ];
+  imports = [
+    ./nerdfont.nix
+  ];
 
   options = {
     features.theming = {

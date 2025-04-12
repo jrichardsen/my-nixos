@@ -14,14 +14,23 @@ in
   options = {
     features.presets.hyprland = {
       enable = mkEnableOption "hyprland presets";
+      hy3Theming = mkEnableOption "extra theming for hyprland (hy3)" // {
+        default = true;
+      };
     };
   };
 
   config = mkIf cfg.enable {
+    home.packages = optional config.wayland.windowManager.hyprland.enable pkgs.hyprshot;
+
     wayland.windowManager.hyprland = {
+      # incompatible with UWSM
+      systemd.enable = false;
+
       plugins = with pkgs.hyprlandPlugins; [ hy3 ];
 
       # Need to define submap here to have proper ordering in config
+      # TODO: remove dynamic configuration before merge
       extraConfig = ''
         submap = resize
 
@@ -38,6 +47,8 @@ in
         submap = reset
 
         source = ~/.hyprland-dynamic.conf
+
+        exec-once = uwsm finalize
       '';
 
       settings =
@@ -47,7 +58,6 @@ in
         {
           "$mod" = "SUPER";
 
-          # TODO: monitor aliases using variables
           monitor = [ ",preferred,auto,auto" ];
 
           general = {
@@ -135,7 +145,7 @@ in
           bind = [
             # General
             "$mod SHIFT, Q, hy3:killactive"
-            "$mod SHIFT CTRL, Q, exit"
+            "$mod SHIFT CTRL, Q, exec, uwsm stop"
             "$mod, R, submap, resize"
             "$mod, C, hy3:makegroup, h, ephemeral"
             "$mod, V, hy3:makegroup, v, ephemeral"
@@ -149,10 +159,16 @@ in
             "$mod, Y, hy3:changefocus, lower"
 
             # Programs
-            (mkCmdKeybind "$mod, Return" apps.terminal)
-            (mkCmdKeybind "$mod SHIFT, Return" apps.webBrowser)
-            (mkCmdKeybind "$mod, M" apps.mailClient)
+            (mkCmdKeybind "$mod, Return" "uwsm app -- ${apps.terminal}")
+            (mkCmdKeybind "$mod SHIFT, Return" "uwsm app -- ${apps.webBrowser}")
+            (mkCmdKeybind "$mod, M" "uwsm app -- ${apps.mailClient}")
             (mkCmdKeybind "$mod, D" apps.appLauncher)
+            (mkCmdKeybind "$mod SHIFT, P" apps.powerMenu)
+
+            # Screenshots
+            ", PRINT, exec, uwsm app -- hyprshot -m output -m active"
+            "$mod, PRINT, exec, uwsm app -- hyprshot -m window -m active"
+            "SHIFT, PRINT, exec, uwsm app -- hyprshot -m region"
 
             # Move focus
             "$mod, H, hy3:movefocus, left, visible"
@@ -238,28 +254,43 @@ in
             "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
           ];
 
-          # TODO: stylix target for hy3
           plugin = {
             hy3 = {
               node_collapse_policy = 0;
               no_gaps_when_only = 1;
 
-              tabs = {
-                height = 24;
-                text_height = 12;
-                padding = 8;
-                render_text = true;
-              };
+              tabs = mkMerge [
+                {
+                  height = 24;
+                  text_height = mkDefault 12;
+                  padding = 8;
+                  render_text = true;
+                }
+                (
+                  let
+                    inherit (config.lib.stylix) colors;
+
+                    rgb = color: "rgb(${color})";
+                  in
+                  mkIf (config.stylix.enable && config.stylix.targets.hyprland.enable && cfg.hy3Theming) {
+                    text_font = config.stylix.fonts.sansSerif.name;
+                    text_height = config.stylix.fonts.sizes.desktop;
+
+                    # NOTE: with newer hyprland, change to only color the border and text and use base01 background for both versions (maybe including opacity)
+                    "col.active" = rgb colors.base0D;
+                    "col.text.active" = rgb colors.base00;
+
+                    "col.inactive" = rgb colors.base03;
+                    "col.text.inactive" = rgb colors.base05;
+                  }
+                )
+              ];
             };
           };
 
           exec-once = config.systemInterface.startupCommands;
         };
 
-    };
-    programs.waybar.systemd = {
-      enable = true;
-      target = "hyprland-session.target";
     };
   };
 }
