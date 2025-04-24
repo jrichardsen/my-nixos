@@ -48,9 +48,9 @@
   };
 
   wayland.windowManager.hyprland.settings.monitor = [
-    "desc:Samsung Electric Company LS27D80xU HK2XB01839, 3840x2160@60, 0x0, 1.5"
+    "desc:Samsung Electric Company LS27D80xU HK2XB01839, 3840x2160@30, 0x0, 1.5"
     "desc:BNQ BenQ GW2265 TAD00473019, 1920x1080@60, 2560x0, 1"
-    "eDP-1, 1920x1080@60, 2560x1440, 1"
+    "eDP-1, 1920x1080@60, 2560x1080, 1"
   ];
 
   home.stateVersion = "23.05";

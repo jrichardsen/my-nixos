@@ -24,8 +24,8 @@ with lib;
     environment.systemPackages = [ pkgs.brightnessctl ]; 
 
     systemInterface.hardware.backlight = {
-      increaseBrightness = "brightnessctl +5%";
-      decreaseBrightness = "brightnessctl 5%-";
+      increaseBrightness = "brightnessctl set +5%";
+      decreaseBrightness = "brightnessctl set 5%-";
     };
   };
 }

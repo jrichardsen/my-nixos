@@ -30,7 +30,9 @@ in
             "hyprland/window"
           ];
           modules-right = [
+            "idle_inhibitor"
             "pulseaudio"
+            "pulseaudio#source"
             "backlight"
             "cpu"
             "memory"
@@ -41,16 +43,25 @@ in
             "clock"
             "custom/power"
           ];
+          "hyprland/workspaces" = {
+            show-special = true;
+            special-visible-only = true;
+          };
           "hyprland/window" = {
             separate-outputs = true;
             max-length = 50;
           };
+          idle_inhibitor = {
+            format = "{icon}";
+            format-icons = {
+              activated = " ";
+              deactivated = " ";
+            };
+          };
           pulseaudio = {
-            format = "{volume}% {icon}  {format_source}";
-            format-muted = "   {format_source}";
-            format-bluetooth = "{volume}% {icon}  {format_source}";
-            format-source = "{volume}%  ";
-            format-source-muted = " ";
+            format = "{volume}% {icon}";
+            format-muted = " ";
+            format-bluetooth = "{volume}% {icon}";
             format-icons = {
               headphone = " ";
               headset = " ";
@@ -64,6 +75,13 @@ in
               ];
             };
             on-click = "pactl set-sink-mute @DEFAULT_SINK@ toggle";
+            on-click-right = "pavucontrol";
+          };
+          "pulseaudio#source" = {
+            format = "{format_source}";
+            format-source = "{volume}%  ";
+            format-source-muted = " ";
+            on-click = "pactl set-source-mute @DEFAULT_SOURCE@ toggle";
             on-click-right = "pavucontrol";
           };
           backlight = {
@@ -113,11 +131,10 @@ in
             ];
           };
           bluetooth = {
-            format = " {status}";
-            format-disabled = "";
+            format = "<span style=\"italic\">{status}</span>  ";
             format-on = " ";
-            format-connected = "{device_alias}  ";
-            format-connected-battery = "{device_alias} ({device_battery_percentage}%)  ";
+            format-connected = "{device_alias:.10s}  ";
+            format-connected-battery = "{device_alias:.10s} ({device_battery_percentage}%)  ";
             tooltip-format = "{controller_alias}\t{controller_address}\n\n{num_connections} connected";
             tooltip-format-connected = "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}";
             tooltip-format-enumerate-connected = "{device_alias}\t{device_address}";
@@ -125,9 +142,9 @@ in
             on-click-right = "blueman-manager";
           };
           network = {
-            format-wifi = "{essid} ({signalStrength}%): {ipaddr}/{cidr}  ";
+            format-wifi = "{essid} ({signalStrength}%)  ";
             format-ethernet = "{ipaddr}/{cidr}  ";
-            tooltip-format = "{ifname} via {gwaddr}";
+            tooltip-format = "{ifname}: {ipaddr}/{cidr} via {gwaddr}";
             format-linked = "{ifname} (No IP) 󰊗 ";
             format-disconnected = "Disconnected  ";
             format-alt = "{ifname}: {bandwidthUpBytes}   {bandwidthDownBytes}  ";

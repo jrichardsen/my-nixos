@@ -7,6 +7,7 @@
 with lib;
 let
   cfg = config.features.presets.hyprland;
+  wmCfg = config.wayland.windowManager.hyprland;
   apps = config.systemInterface.applications;
   hardware = config.systemInterface.hardware;
 in
@@ -21,7 +22,11 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = optional config.wayland.windowManager.hyprland.enable pkgs.hyprshot;
+    home.packages = optional wmCfg.enable pkgs.hyprshot;
+
+    xdg.configFile."uwsm/env-hyprland".text = mkIf wmCfg.enable ''
+      export AQ_NO_MODIFIERS=1
+    '';
 
     wayland.windowManager.hyprland = {
       # incompatible with UWSM
