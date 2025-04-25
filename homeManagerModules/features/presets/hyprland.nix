@@ -15,6 +15,9 @@ in
   options = {
     features.presets.hyprland = {
       enable = mkEnableOption "hyprland presets";
+      animations = mkEnableOption "animations" // {
+        default = true;
+      };
       hy3Theming = mkEnableOption "extra theming for hyprland (hy3)" // {
         default = true;
       };
@@ -99,7 +102,7 @@ in
             };
           };
           animations = {
-            enabled = "yes";
+            enabled = if cfg.animations then "yes" else "no";
 
             bezier = [
               "easeOutQuint,0.23,1,0.32,1"

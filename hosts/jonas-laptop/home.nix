@@ -33,6 +33,8 @@
     desktopEnvironment.enable = true;
     presets.enableAll = true;
 
+    presets.hyprland.animations = false;
+
     development = {
       networking.enable = true;
       languages = {
