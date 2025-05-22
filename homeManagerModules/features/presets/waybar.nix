@@ -39,6 +39,7 @@ in
             "network"
             "battery"
             "clock"
+            "group/tray"
             "custom/power"
           ];
           "hyprland/workspaces" = {
@@ -145,6 +146,24 @@ in
           clock = {
             tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
             format-alt = "{:%Y-%m-%d}";
+          };
+          "group/tray" = {
+            orientation = "inherit";
+            drawer = {
+              transition-left-to-right = false;
+            };
+            modules = [
+              "custom/tray-icon"
+              "tray"
+            ];
+          };
+          "custom/tray-icon" = {
+            format = "  ";
+            tooltip = false;
+          };
+          tray = {
+            icon-size = 16;
+            spacing = 4;
           };
           "custom/power" = {
             format = " ";
