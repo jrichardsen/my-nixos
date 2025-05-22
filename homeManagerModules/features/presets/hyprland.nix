@@ -38,7 +38,6 @@ in
       plugins = with pkgs.hyprlandPlugins; [ hy3 ];
 
       # Need to define submap here to have proper ordering in config
-      # TODO: remove dynamic configuration before merge
       extraConfig = ''
         submap = resize
 
@@ -53,8 +52,6 @@ in
         bind = Mod3, y, submap, reset
 
         submap = reset
-
-        source = ~/.hyprland-dynamic.conf
 
         exec-once = uwsm finalize
       '';

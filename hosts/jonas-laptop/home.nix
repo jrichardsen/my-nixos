@@ -25,10 +25,6 @@
     telegram-desktop
   ];
 
-  services = {
-    flameshot.enable = true;
-  };
-
   features = {
     desktopEnvironment.enable = true;
     presets.enableAll = true;

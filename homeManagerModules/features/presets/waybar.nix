@@ -19,8 +19,6 @@ in
     programs.waybar = {
       settings = {
         mainBar = {
-          # TODO: remove before merge
-          include = [ "~/.waybar-dynamic.jsonc" ];
           spacing = 8;
           modules-left = [
             "hyprland/workspaces"
@@ -111,14 +109,8 @@ in
             format = "{free}  ";
           };
           battery = {
-            states = {
-              good = 95;
-              warning = 30;
-              critical = 15;
-            };
             format = "{capacity}% {icon}";
             format-full = "";
-            format-good = "";
             format-charging = "{capacity}% 󰂄";
             format-plugged = "{capacity}%  ";
             format-tooltip = "{time} {icon}";
