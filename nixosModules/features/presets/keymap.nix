@@ -16,5 +16,10 @@ with lib;
       variant = "neo_qwertz";
     };
     console.useXkbConfig = true;
+
+    environment.variables = {
+      XKB_DEFAULT_LAYOUT = "de";
+      XKB_DEFAULT_VARIANT = "neo_qwertz";
+    };
   };
 }
