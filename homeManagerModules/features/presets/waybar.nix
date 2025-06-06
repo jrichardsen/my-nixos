@@ -80,6 +80,9 @@ in
             format = "{format_source}";
             format-source = "{volume}%  ";
             format-source-muted = " ";
+            tooltip-format = "{source_desc}";
+            on-scroll-up = "pactl set-source-volume @DEFAULT_SOURCE@ +1%";
+            on-scroll-down = "pactl set-source-volume @DEFAULT_SOURCE@ -1%";
             on-click = "pactl set-source-mute @DEFAULT_SOURCE@ toggle";
             on-click-right = "pavucontrol";
           };
