@@ -27,6 +27,7 @@
 
   features = {
     desktopEnvironment.enable = true;
+    laptop.enable = true;
     presets.enableAll = true;
 
     presets.hyprland.animations = false;
