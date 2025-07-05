@@ -17,11 +17,11 @@ with lib;
 
   config = mkIf cfg.enable {
     stylix.fonts.monospace = {
-      package = pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; };
+      package = pkgs.nerd-fonts.jetbrains-mono;
       name = "JetBrainsMono Nerd Font";
     };
     fonts = mkIf (!config.stylix.enable) {
-      packages = [ (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; }) ];
+      packages = [ pkgs.nerd-fonts.jetbrains-mono ];
       fontconfig.defaultFonts.monospace = [ "JetBrainsMono Nerd Font" ];
     };
   };

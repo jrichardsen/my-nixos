@@ -33,7 +33,7 @@ with lib;
         neo = "setxkbmap de neo_qwertz";
         noneo = "setxkbmap de";
       };
-      initExtra = ''
+      initContent = ''
         unsetopt extendedglob
 
         bindkey -s "^f" "tms\n"

@@ -270,6 +270,8 @@ in
                   text_height = mkDefault 12;
                   padding = 8;
                   render_text = true;
+                  text_center = false;
+                  text_padding = 8;
                 }
                 (
                   let
@@ -281,19 +283,24 @@ in
                     text_font = config.stylix.fonts.sansSerif.name;
                     text_height = config.stylix.fonts.sizes.desktop;
 
-                    # NOTE: with newer hyprland, change to only color the border and text and use base01 background for both versions (maybe including opacity)
                     "col.active" = rgb colors.base0D;
-                    "col.text.active" = rgb colors.base00;
+                    "col.active.border" = rgb colors.base0D;
+                    "col.active.text" = rgb colors.base00;
 
-                    "col.inactive" = rgb colors.base03;
-                    "col.text.inactive" = rgb colors.base05;
+                    "col.focused" = rgb colors.base01;
+                    "col.focused.border" = rgb colors.base0D;
+                    "col.focused.text" = rgb colors.base05;
+
+                    "col.inactive" = rgb colors.base01;
+                    "col.inactive.border" = rgb colors.base03;
+                    "col.inactive.text" = rgb colors.base05;
                   }
                 )
               ];
             };
           };
 
-          exec-once = config.systemInterface.startupCommands;
+          exec-once = config.systemInterface.startupCommands ++ [ "hyprctl setcursor Adwaita 24" ];
         };
 
     };

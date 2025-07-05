@@ -34,11 +34,6 @@ with lib;
       hyprlock.enable = true;
     };
 
-    # Fix for ordering issues
-    systemd.user.services.waybar.Unit.After = [ "graphical-session.target" ];
-    systemd.user.services.hyprpaper.Unit.After = [ "graphical-session.target" ];
-    systemd.user.services.hypridle.Unit.After = [ "graphical-session.target" ];
-
     services.dunst.enable = true;
 
     systemInterface.applications.screenLocker = "loginctl lock-session";

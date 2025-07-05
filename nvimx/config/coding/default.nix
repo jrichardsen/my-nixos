@@ -50,7 +50,6 @@
       };
       treesitter = {
         enable = true;
-        gccPackage = null;
         settings = {
           indent.enable = true;
           highlight.enable = true;

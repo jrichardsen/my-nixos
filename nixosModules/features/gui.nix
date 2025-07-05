@@ -38,7 +38,5 @@ with lib;
     };
 
     systemd.packages = [ pkgs.hyprpolkitagent ];
-    # NOTE: should hopefully be fixed with nixos 25.05
-    systemInterface.startupCommands = [ "systemctl --user start hyprpolkitagent" ];
   };
 }

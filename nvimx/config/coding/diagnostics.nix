@@ -22,7 +22,7 @@
       '' "Toggle diagnostics")
     ];
     # configure signs for diagnostics
-    diagnostics = {
+    diagnostic.settings = {
       virtual_text = {
         spacing = 4;
         source = "if_many";

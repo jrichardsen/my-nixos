@@ -15,7 +15,7 @@
 
   home.packages = with pkgs; [
     libreoffice
-    okular
+    kdePackages.okular
     pympress
     vlc
 
