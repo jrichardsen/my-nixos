@@ -18,10 +18,13 @@ with lib;
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [
-      arp-scan
-      dig
-      nmap
-    ] ++ optional (!hasWireshark) wireshark;
+    home.packages =
+      with pkgs;
+      [
+        arp-scan
+        dig
+        nmap
+      ]
+      ++ optional (!hasWireshark) wireshark;
   };
 }

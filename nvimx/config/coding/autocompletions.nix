@@ -17,22 +17,26 @@
             "<S-CR>" = "cmp.mapping.confirm { behavior = cmp.ConfirmBehavior.Replace }";
             "<C-y>" = "cmp.mapping.confirm { select = true }";
             "<C-Space>" = "cmp.mapping.complete {}";
-            "<C-l>" = "function() 
+            "<C-l>" =
+              "function() 
               if require('luasnip').locally_jumpable(1) then
                 require('luasnip').jump(1)
               end
             end";
-            "<C-h>" = "function() 
+            "<C-h>" =
+              "function() 
               if require('luasnip').locally_jumpable(-1) then
                 require('luasnip').jump(-1)
               end
             end";
-            "<C-j>" = "function()
+            "<C-j>" =
+              "function()
               if require('luasnip').choice_active() then
                 require('luasnip').change_choice(1)
               end
             end";
-            "<C-k>" = "function()
+            "<C-k>" =
+              "function()
               if require('luasnip').choice_active() then
                 require('luasnip').change_choice(-1)
               end

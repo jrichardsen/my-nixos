@@ -11,7 +11,7 @@ with lib;
   };
 
   config = mkIf cfg.enable {
-    stylix.targets.firefox.profileNames = [];
+    stylix.targets.firefox.profileNames = [ ];
     systemInterface.applications.webBrowser = mkIf config.programs.firefox.enable "firefox";
   };
 }

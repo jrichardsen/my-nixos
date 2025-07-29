@@ -9,7 +9,7 @@ let
 in
 with lib;
 {
-  options = { 
+  options = {
     features.presets.shell = {
       enable = mkEnableOption "shell presets";
     };

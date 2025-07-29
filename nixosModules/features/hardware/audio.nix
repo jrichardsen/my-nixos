@@ -27,10 +27,12 @@ with lib;
       alsa.support32Bit = true;
       pulse.enable = true;
     };
-    environment.systemPackages = with pkgs; mkMerge [
-      [ pulseaudio ]
-      (mkIf config.features.gui.enable [ pavucontrol ])
-    ];
+    environment.systemPackages =
+      with pkgs;
+      mkMerge [
+        [ pulseaudio ]
+        (mkIf config.features.gui.enable [ pavucontrol ])
+      ];
     systemInterface.applications.audioManager = mkIf config.features.gui.enable "pavucontrol";
     systemInterface.hardware.audio = {
       increaseVolume = "pactl set-sink-volume @DEFAULT_SINK@ +5%";
