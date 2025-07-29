@@ -20,6 +20,7 @@ with lib;
 
     home.packages = with pkgs; [
       texlive.combined.scheme-full
+      tex-fmt
 
       # language server
       texlab

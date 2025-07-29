@@ -1,4 +1,9 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 let
   cfg = config.languages.latex;
 in
@@ -40,5 +45,8 @@ with lib;
         };
       };
     };
+    plugins.conform-nvim.settings.formatters_by_ft.tex = [
+      (if cfg.bundleTooling then "${pkgs.tex-fmt}/bin/tex-fmt" else "tex-fmt")
+    ];
   };
 }

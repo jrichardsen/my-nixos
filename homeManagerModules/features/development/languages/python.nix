@@ -19,6 +19,9 @@ with lib;
     home.packages = with pkgs; [
       python3
       pyright
+
+      isort
+      black
     ];
 
     programs.nixvim.languages.python.enable = true;

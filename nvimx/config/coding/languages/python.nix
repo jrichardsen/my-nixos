@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }:
 let
@@ -20,5 +21,9 @@ with lib;
       enable = true;
       package = mkIf (!cfg.bundleTooling) (mkDefault null);
     };
+    plugins.conform-nvim.settings.formatters_by_ft.python = [
+      (if cfg.bundleTooling then "${pkgs.isort}/bin/isort" else "isort")
+      (if cfg.bundleTooling then "${pkgs.black}/bin/black" else "black")
+    ];
   };
 }

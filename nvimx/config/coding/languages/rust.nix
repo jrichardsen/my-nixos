@@ -1,4 +1,9 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 let
   cfg = config.languages.rust;
 in
@@ -18,5 +23,8 @@ with lib;
       installCargo = mkDefault cfg.bundleTooling;
       installRustc = mkDefault cfg.bundleTooling;
     };
+    plugins.conform-nvim.settings.formatters_by_ft.rust = [
+      (if cfg.bundleTooling then "${pkgs.rustfmt}/bin/rustmft" else "rustfmt")
+    ];
   };
 }

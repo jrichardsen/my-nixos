@@ -1,7 +1,7 @@
 {
-  pkgs,
   lib,
   config,
+  pkgs,
   ...
 }:
 let
@@ -20,9 +20,9 @@ with lib;
     plugins.lsp.servers.nil_ls = {
       enable = true;
       package = mkIf (!cfg.bundleTooling) (mkDefault null);
-      settings.formatting.command = [
-        (if cfg.bundleTooling then "${pkgs.nixfmt-rfc-style}/bin/nixfmt" else "nixfmt")
-      ];
     };
+    plugins.conform-nvim.settings.formatters_by_ft.nix = [
+      (if cfg.bundleTooling then "${pkgs.nixfmt-rfc-style}/bin/nixfmt" else "nixfmt")
+    ];
   };
 }
