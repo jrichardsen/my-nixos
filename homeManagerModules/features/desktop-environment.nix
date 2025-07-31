@@ -74,7 +74,20 @@ with lib;
 
     xdg = {
       enable = true;
-      mimeApps.enable = true;
+      mimeApps = {
+        enable = true;
+        defaultApplications =
+          let
+            browserDesktop = "${config.systemInterface.applications.webBrowser}.desktop";
+          in
+          {
+            "text/html" = browserDesktop;
+            "x-scheme-handler/http" = browserDesktop;
+            "x-scheme-handler/https" = browserDesktop;
+            "x-scheme-handler/about" = browserDesktop;
+            "x-scheme-handler/unknown" = browserDesktop;
+          };
+      };
       userDirs.enable = true;
     };
 
