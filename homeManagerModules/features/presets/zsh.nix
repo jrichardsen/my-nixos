@@ -26,6 +26,9 @@ with lib;
           "git"
         ];
       };
+      sessionVariables = mkIf config.programs.nixvim.enable {
+        MANPAGER = "nvim +Man!";
+      };
       shellAliases = {
         kssh = mkIf config.programs.kitty.enable "kitty +kitten ssh";
         v = mkIf config.programs.nixvim.enable "nvim";
