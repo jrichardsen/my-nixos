@@ -4,6 +4,10 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -18,6 +22,7 @@
       flake-parts,
       nixpkgs,
       nixpkgs-unstable,
+      nur,
       home-manager,
       stylix,
       ...
@@ -60,6 +65,7 @@
                   default
                   applyOverlays
                   homeManagerIntegration
+                  nur.modules.nixos.default
 
                   stylix.nixosModules.stylix
                 ];
