@@ -9,7 +9,7 @@ with lib;
     ./dunst.nix
     ./git.nix
     ./hyprland.nix
-    ./firefox.nix
+    ./librewolf.nix
     ./flameshot.nix
     ./kitty.nix
     ./nixvim.nix
@@ -33,7 +33,7 @@ with lib;
     features.presets = mkIf cfg.enableAll (mkDefault {
       direnv.enable = true;
       dunst.enable = true;
-      firefox.enable = true;
+      librewolf.enable = true;
       flameshot.enable = true;
       git.enable = true;
       hyprland.enable = true;

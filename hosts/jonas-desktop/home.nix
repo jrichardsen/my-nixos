@@ -6,7 +6,7 @@
   programs = {
     home-manager.enable = true;
 
-    firefox.enable = true;
+    librewolf.enable = true;
     feh.enable = true;
     zathura.enable = true;
 
