@@ -1,5 +1,6 @@
 {
   imports = [
+    ./bash.nix
     ./c.nix
     ./haskell.nix
     ./latex.nix

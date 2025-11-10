@@ -11,7 +11,7 @@ with lib;
 {
   options = {
     features.development.languages.c = {
-      enable = mkEnableOption "c language tools";
+      enable = mkEnableOption "C(++) language tools";
     };
   };
 

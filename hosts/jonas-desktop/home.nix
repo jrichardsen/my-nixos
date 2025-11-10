@@ -32,6 +32,7 @@
     development = {
       networking.enable = true;
       languages = {
+        bash.enable = true;
         c.enable = true;
         haskell.enable = true;
         latex.enable = true;

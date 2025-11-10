@@ -5,6 +5,7 @@ in
 with lib;
 {
   imports = [
+    ./bash.nix
     ./c.nix
     ./haskell.nix
     ./latex.nix
