@@ -46,6 +46,8 @@ with lib;
 
           bind '"' split-window -v -c "#{pane_current_path}"
           bind % split-window -h -c "#{pane_current_path}"
+          bind R rename-window "#{b:pane_current_path}"
+          bind C-r set-option -w automatic-rename on
 
           # Smart pane switching with awareness of Vim splits.
           # See: https://github.com/christoomey/vim-tmux-navigator

@@ -43,6 +43,7 @@ with lib;
 
         # configuration of zsh-vi-mode
         ZVM_VI_SURROUND_BINDKEY = "s-prefix";
+        ZVM_SYSTEM_CLIPBOARD_ENABLED = true;
       };
       shellAliases = {
         kssh = mkIf config.programs.kitty.enable "kitty +kitten ssh";
@@ -54,7 +55,11 @@ with lib;
       initContent = ''
         unsetopt extendedglob
 
-        bindkey -s "^f" "tms\n"
+        function run_tms() {
+          tms
+        }
+        zle -N run_tms
+        bindkey "^[f" run_tms
       '';
     };
   };
