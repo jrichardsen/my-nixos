@@ -1,4 +1,9 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 let
   cfg = config.features.presets.zsh;
 in
@@ -16,6 +21,13 @@ with lib;
       enableCompletion = true;
       historySubstringSearch.enable = true;
       syntaxHighlighting.enable = true;
+      plugins = [
+        {
+          name = "vi-mode";
+          src = pkgs.zsh-vi-mode;
+          file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
+        }
+      ];
       oh-my-zsh = {
         enable = true;
         plugins = [
@@ -28,6 +40,9 @@ with lib;
       };
       sessionVariables = mkIf config.programs.nixvim.enable {
         MANPAGER = "nvim +Man!";
+
+        # configuration of zsh-vi-mode
+        ZVM_VI_SURROUND_BINDKEY = "s-prefix";
       };
       shellAliases = {
         kssh = mkIf config.programs.kitty.enable "kitty +kitten ssh";
