@@ -56,10 +56,12 @@ with lib;
         unsetopt extendedglob
 
         function run_tms() {
-          tms
+          tms <>$TTY
+          zle redisplay
         }
         zle -N run_tms
-        bindkey "^[f" run_tms
+        bindkey -a "^[f" run_tms
+        bindkey -v "^[f" run_tms
       '';
     };
   };
