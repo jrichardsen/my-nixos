@@ -26,10 +26,7 @@ with lib;
         systemd.enable = true;
       };
 
-      rofi = {
-        enable = true;
-        package = pkgs.rofi-wayland;
-      };
+      rofi.enable = true;
 
       hyprlock.enable = true;
     };

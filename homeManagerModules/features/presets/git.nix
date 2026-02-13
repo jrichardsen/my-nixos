@@ -12,9 +12,9 @@ with lib;
 
   config = mkIf cfg.enable {
     programs.git = {
-      userName = "jrichardsen";
-      userEmail = "jonas.richardsen@gmail.com";
-      extraConfig = {
+      settings = {
+        user.name = "jrichardsen";
+        user.email = "jonas.richardsen@gmail.com";
         core = {
           autocrlf = "input";
           editor = "nvim";

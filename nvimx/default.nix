@@ -6,7 +6,7 @@
         { lib, ... }:
         with lib;
         {
-          imports = [ inputs.nixvim.homeManagerModules.nixvim ];
+          imports = [ inputs.nixvim.homeModules.nixvim ];
           options.programs.nixvim = mkOption {
             type = types.submoduleWith { modules = [ config.flake.modules.generic.nvimx ]; };
           };

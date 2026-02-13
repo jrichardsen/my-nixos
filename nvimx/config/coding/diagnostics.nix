@@ -1,7 +1,7 @@
 {
   config,
   utils,
-  helpers,
+  lib,
   ...
 }:
 {
@@ -34,13 +34,13 @@
           let
             symbols = config.style.symbols.diagnostics;
           in
-          helpers.mkRaw ''
+          lib.nixvim.mkRaw ''
             {
-                        [vim.diagnostic.severity.ERROR] = "${symbols.error}";
-                        [vim.diagnostic.severity.WARN] = "${symbols.warn}";
-                        [vim.diagnostic.severity.HINT] = "${symbols.hint}";
-                        [vim.diagnostic.severity.INFO] = "${symbols.info}";
-                      }'';
+              [vim.diagnostic.severity.ERROR] = "${symbols.error}";
+              [vim.diagnostic.severity.WARN] = "${symbols.warn}";
+              [vim.diagnostic.severity.HINT] = "${symbols.hint}";
+              [vim.diagnostic.severity.INFO] = "${symbols.info}";
+            }'';
       };
     };
   };

@@ -1,5 +1,5 @@
 {
-  helpers,
+  lib,
   pkgs,
   utils,
   ...
@@ -114,7 +114,7 @@
       {
         desc = "Highlight when yanking (copying) text";
         event = "TextYankPost";
-        callback = helpers.mkRaw "function() vim.highlight.on_yank() end";
+        callback = lib.nixvim.mkRaw "function() vim.highlight.on_yank() end";
       }
       {
         desc = "Check if we need to reload the file when it changes";
@@ -123,7 +123,7 @@
           "TermClose"
           "TermLeave"
         ];
-        callback = helpers.mkRaw ''
+        callback = lib.nixvim.mkRaw ''
           function()
             if vim.o.buftype ~= "nofile" then
               vim.cmd("checktime")
@@ -140,7 +140,7 @@
           "checkhealth"
           "gitsigns.blame"
         ];
-        callback = helpers.mkRaw ''
+        callback = lib.nixvim.mkRaw ''
           function(event)
             vim.bo[event.buf].buflisted = false;
             vim.keymap.set("n", "q", "<cmd>close<cr>", {
@@ -154,7 +154,7 @@
       {
         desc = "Auto create intermediate directories when saving a file";
         event = "BufWritePre";
-        callback = helpers.mkRaw ''
+        callback = lib.nixvim.mkRaw ''
           function(event)
             if event.match:match("^%w%w+:[\\/][\\/]") then
               return

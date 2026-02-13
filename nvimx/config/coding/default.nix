@@ -1,4 +1,4 @@
-{ helpers, ... }:
+{ lib, ... }:
 {
   imports = [
     ./autocompletions.nix
@@ -19,16 +19,16 @@
           ai = {
             n_lines = 500;
             custom_textobjects = {
-              o = helpers.mkRaw ''
+              o = lib.nixvim.mkRaw ''
                 require("mini.ai").gen_spec.treesitter({
                   a = { "@block.outer", "@conditional.outer", "@loop.outer" },
                   i = { "@block.inner", "@conditional.inner", "@loop.inner" },
                 })
               '';
-              f = helpers.mkRaw ''
+              f = lib.nixvim.mkRaw ''
                 require("mini.ai").gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" })
               '';
-              c = helpers.mkRaw ''
+              c = lib.nixvim.mkRaw ''
                 require("mini.ai").gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" })
               '';
             };

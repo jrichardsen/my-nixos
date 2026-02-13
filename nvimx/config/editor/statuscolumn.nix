@@ -1,4 +1,4 @@
-{ config, helpers, ... }:
+{ config, lib, ... }:
 {
   config = {
     plugins.statuscol = {
@@ -14,12 +14,12 @@
           }
           {
             text = [
-              (helpers.mkRaw "require('statuscol.builtin').lnumfunc")
+              (lib.nixvim.mkRaw "require('statuscol.builtin').lnumfunc")
               " "
             ];
             condition = [
               true
-              (helpers.mkRaw "require('statuscol.builtin').not_empty")
+              (lib.nixvim.mkRaw "require('statuscol.builtin').not_empty")
             ];
           }
           {

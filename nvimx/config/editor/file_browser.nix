@@ -1,7 +1,7 @@
 {
   config,
   utils,
-  helpers,
+  lib,
   ...
 }:
 {
@@ -31,7 +31,7 @@
           "<leader>fs" = "actions.change_sort";
           "<leader>fd" = {
             desc = "Toggle detail view";
-            callback = helpers.mkRaw ''
+            callback = lib.nixvim.mkRaw ''
               function()
                 local oil = require("oil")
                 local config = require("oil.config")

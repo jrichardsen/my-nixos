@@ -1,7 +1,7 @@
 {
   config,
   utils,
-  helpers,
+  lib,
   ...
 }:
 {
@@ -29,7 +29,7 @@
       enable = true;
       settings.options = {
         always_show_bufferline = false;
-        close_command = helpers.mkRaw ''function(n) require("mini.bufremove").delete(n, false) end'';
+        close_command = lib.nixvim.mkRaw ''function(n) require("mini.bufremove").delete(n, false) end'';
         diagnostics = "nvim_lsp";
         diagnostics_indicator =
           let

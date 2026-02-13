@@ -1,11 +1,11 @@
-{ helpers, utils, ... }:
+{ lib, utils, ... }:
 {
   config = {
     plugins = {
       fugitive.enable = true;
       gitsigns = {
         enable = true;
-        settings.on_attach = helpers.mkRaw ''
+        settings.on_attach = lib.nixvim.mkRaw ''
           function(buffer)
             local gs = package.loaded.gitsigns
 
