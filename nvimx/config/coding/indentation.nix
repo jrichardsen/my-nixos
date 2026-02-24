@@ -16,8 +16,7 @@
         tab_char = "│";
       };
       scope = {
-        show_start = false;
-        show_end = false;
+        enabled = false;
       };
       exclude.filetypes = [ "dashboard" ];
     };
