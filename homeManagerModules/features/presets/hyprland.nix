@@ -31,6 +31,9 @@ in
       export AQ_NO_MODIFIERS=1
     '';
 
+    # Let xwayland apps use Ozone Wayland support
+    home.sessionVariables.NIXOS_OZONE_WL = "1";
+
     wayland.windowManager.hyprland = {
       # incompatible with UWSM
       systemd.enable = false;
