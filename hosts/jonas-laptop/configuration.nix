@@ -11,10 +11,15 @@
     extraGroups = [ "wheel" ];
   };
 
+  services.udisks2.enable = true;
+
+  services.flatpak.enable = true;
+
   features = {
     development = {
       users = [ "jonas" ];
       android.enable = true;
+      arm-emulation.enable = true;
       docker.enable = true;
       documentation.enable = true;
       networking.enable = true;

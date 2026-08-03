@@ -10,6 +10,7 @@ with lib;
 {
   imports = [
     ./android.nix
+    ./arm-emulation.nix
     ./docker.nix
     ./documentation.nix
     ./networking.nix

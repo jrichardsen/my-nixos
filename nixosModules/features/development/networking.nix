@@ -23,5 +23,8 @@ with lib;
     features.development.groups = [ "wireshark" ];
 
     environment.systemPackages = with pkgs; [ inetutils ];
+
+    # Allow shared connections to use dhcp and dns
+    networking.firewall.allowedUDPPorts = [ 53 67 ];
   };
 }
