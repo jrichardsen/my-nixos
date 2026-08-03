@@ -17,7 +17,7 @@ with lib;
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      nixfmt-rfc-style
+      nixfmt
 
       # language server
       nil

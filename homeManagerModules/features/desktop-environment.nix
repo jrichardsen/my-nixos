@@ -86,6 +86,7 @@ with lib;
           };
       };
       userDirs.enable = true;
+      userDirs.setSessionVariables = true;
     };
 
     home.packages = with pkgs; [

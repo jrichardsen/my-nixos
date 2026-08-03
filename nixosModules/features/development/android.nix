@@ -1,4 +1,9 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 let
   cfg = config.features.development.android;
 in
@@ -11,7 +16,7 @@ with lib;
   };
 
   config = mkIf cfg.enable {
-    programs.adb.enable = true;
+    environment.systemPackages = with pkgs; [ android-tools ];
     features.development.groups = [ "adbusers" ];
   };
 }

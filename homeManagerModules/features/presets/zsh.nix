@@ -18,6 +18,7 @@ with lib;
   config = mkIf cfg.enable {
     programs.zsh = {
       autosuggestion.enable = true;
+      dotDir = "${config.xdg.configHome}/zsh";
       enableCompletion = true;
       historySubstringSearch.enable = true;
       syntaxHighlighting.enable = true;
